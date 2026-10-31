@@ -292,59 +292,59 @@ interface FaqItem {
 const FAQ_ITEMS: FaqItem[] = [
   {
     id: 1,
-    question: '1. What kind of Minecraft plugins do you develop?',
+    question: "1. What kind of Minecraft plugins do you develop?",
     answer: [
       "I develop custom Minecraft plugins tailored to your server's needs, including gameplay mechanics, custom systems, events, minigames, and integrations.",
-      'Whether you have a new idea or need to improve an existing feature, feel free to get in touch.',
+      "Whether you have a new idea or need to improve an existing feature, feel free to get in touch.",
     ],
   },
   {
     id: 2,
-    question: '2. Which server software and versions do you support?',
+    question: "2. Which server software and versions do you support?",
     answer: [
-      'I work with Minecraft server plugin development, including Paper and Spigot-based environments.',
-      'Compatibility depends on the project requirements, so we can discuss your server software and Minecraft version before development begins.',
+      "I work with Minecraft server plugin development, including Paper and Spigot-based environments.",
+      "Compatibility depends on the project requirements, so we can discuss your server software and Minecraft version before development begins.",
     ],
   },
   {
     id: 3,
-    question: '3. Can you work with existing plugins?',
+    question: "3. Can you work with existing plugins?",
     answer: [
-      'Yes! I can help improve existing plugin setups, implement additional features, troubleshoot issues, and develop integrations between plugins.',
-      'The feasibility depends on the plugins involved and the available APIs or source code.',
+      "Yes! I can help improve existing plugin setups, implement additional features, troubleshoot issues, and develop integrations between plugins.",
+      "The feasibility depends on the plugins involved and the available APIs or source code.",
     ],
   },
   {
     id: 4,
-    question: '4. How does the development process work?',
+    question: "4. How does the development process work?",
     answer: [
-      'Every project starts with a conversation about your idea and requirements.',
-      'From there, we define the scope, discuss the expected features, agree on the details, and move into development and testing.',
+      "Every project starts with a conversation about your idea and requirements.",
+      "From there, we define the scope, discuss the expected features, agree on the details, and move into development and testing.",
       "You'll know what to expect before development begins.",
     ],
   },
   {
     id: 5,
-    question: '5. How much does a custom plugin cost?',
+    question: "5. How much does a custom plugin cost?",
     answer: [
-      'Pricing depends on the complexity, features, and requirements of each project.',
-      'Once I understand what you need, I can provide a quote based on the project\'s scope.',
+      "Pricing depends on the complexity, features, and requirements of each project.",
+      "Once I understand what you need, I can provide a quote based on the project's scope.",
     ],
   },
   {
     id: 6,
-    question: '6. How long does it take to develop a plugin?',
+    question: "6. How long does it take to develop a plugin?",
     answer: [
-      'Development time depends on the complexity and scope of the project.',
-      'Smaller features may take less time, while more advanced systems require additional development and testing. I\'ll discuss the expected timeline with you before starting.',
+      "Development time depends on the complexity and scope of the project.",
+      "Smaller features may take less time, while more advanced systems require additional development and testing. I'll discuss the expected timeline with you before starting.",
     ],
   },
   {
     id: 7,
-    question: '7. Do you provide support after delivery?',
+    question: "7. Do you provide support after delivery?",
     answer: [
-      'Post-delivery support and maintenance can be discussed as part of the project.',
-      'The support period, included revisions, and any future updates will be agreed upon before development begins.',
+      "Post-delivery support and maintenance can be discussed as part of the project.",
+      "The support period, included revisions, and any future updates will be agreed upon before development begins.",
     ],
   },
 ];
@@ -374,7 +374,7 @@ export default function App() {
 
   const toggleFaq = (id: number) => {
     setOpenFaqIds((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
     );
   };
 
@@ -1618,228 +1618,241 @@ export default function App() {
                 </p>
               </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-              {/* Direct Discord Card & Links (5 cols) */}
-              <div className="lg:col-span-5 space-y-6">
-                {/* Interactive Discord Direct Box */}
-                <div className="bg-[#0B1F38]/95 border-2 border-[#67E8F9]/50 hover:border-[#67E8F9] p-6 sm:p-8 shadow-2xl transition-all duration-200 group relative overflow-hidden">
-                  <div className="absolute -right-8 -top-8 w-32 h-32 bg-[#67E8F9]/10 rounded-full blur-2xl pointer-events-none group-hover:bg-[#67E8F9]/20 transition-all"></div>
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-[#00b954] text-[#003543] flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
-                        <span className="material-symbols-outlined text-[26px]">chat</span>
-                      </div>
-                      <div>
-                        <span className="font-['JetBrains_Mono'] text-xs text-[#67E8F9] uppercase tracking-wider block font-semibold">
-                          FASTEST RESPONSE
-                        </span>
-                        <h3 className="text-xl font-bold text-[#F5F8FF] uppercase">
-                          Discord Direct
-                        </h3>
-                      </div>
-                    </div>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start w-full max-w-full overflow-hidden">
+                {/* Direct Discord Card & Links (5 cols) */}
+                <div className="lg:col-span-5 space-y-6 w-full min-w-0">
+                  <FadeIn direction="right">
+                    {/* Interactive Discord Direct Box */}
+                    <div className="bg-[#0B1F38]/95 border-2 border-[#67E8F9]/50 hover:border-[#67E8F9] p-5 sm:p-8 shadow-2xl transition-all duration-200 group relative overflow-hidden">
+                      <div className="absolute -right-8 -top-8 w-32 h-32 bg-[#67E8F9]/10 rounded-full blur-2xl pointer-events-none group-hover:bg-[#67E8F9]/20 transition-all"></div>
 
-                      <a
-                        className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-[#00b954] hover:bg-[#67E8F9] text-[#003543] font-bold text-xs uppercase tracking-wider transition-colors shadow-md whitespace-nowrap"
-                        href="https://discord.com/users/291955215446441984"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                      >
-                        <span>Open Discord Profile</span>
-                        <span className="material-symbols-outlined text-[16px]">
-                          open_in_new
-                        </span>
-                      </a>
-                    </div>
-
-                    <div className="bg-[#030e20] p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border border-[#00b954]/20">
-                      <div className="flex items-center gap-3">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#4ae176] shadow-[0_0_8px_#4ae176]"></span>
-                        <div>
-                          <span className="font-['JetBrains_Mono'] text-base text-[#F5F8FF] font-semibold">
-                            wpvoxel
-                          </span>
-                          <span className="text-xs text-[#bbc9cf] font-['JetBrains_Mono'] ml-2 block sm:inline">
-                            (ID: 291955215446441984)
-                          </span>
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                        <div className="flex items-center gap-4 min-w-0">
+                          <div className="w-12 h-12 bg-[#00b954] text-[#003543] flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform shrink-0">
+                            <span className="material-symbols-outlined text-[26px]">
+                              chat
+                            </span>
+                          </div>
+                          <div className="min-w-0">
+                            <span className="font-['JetBrains_Mono'] text-xs text-[#67E8F9] uppercase tracking-wider block font-semibold truncate">
+                              FASTEST RESPONSE
+                            </span>
+                            <h3 className="text-lg sm:text-xl font-bold text-[#F5F8FF] uppercase truncate">
+                              Discord Direct
+                            </h3>
+                          </div>
                         </div>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <button
-                          type="button"
-                          onClick={handleCopyDiscord}
-                          className="px-3 py-1.5 bg-[#142032] hover:bg-[#1e2a3d] text-[#67E8F9] font-['JetBrains_Mono'] text-xs uppercase flex items-center gap-1.5 transition-colors border border-[#3c494e]/40"
-                        >
-                          <span className="material-symbols-outlined text-[14px]">
-                            {copiedDiscord ? "done" : "content_copy"}
-                          </span>
-                          <span>{copiedDiscord ? "Copied!" : "Copy Tag"}</span>
-                        </button>
-                        <a
-                          className="px-3 py-1.5 bg-[#142032] hover:bg-[#1e2a3d] text-[#67E8F9] font-['JetBrains_Mono'] text-xs uppercase flex items-center gap-1.5 transition-colors border border-[#3c494e]/40"
-                          href="https://discord.com/users/291955215446441984"
-                          rel="noopener noreferrer"
-                          target="_blank"
-                        >
-                          <span className="material-symbols-outlined text-[14px]">
-                            link
-                          </span>
-                          <span>Connect</span>
-                        </a>
+
+                      <div className="bg-[#030e20] p-4 flex flex-col gap-3 border border-[#00b954]/20">
+                        {/* Linha superior: Indicador, Nome e ID */}
+                        <div className="flex items-center gap-3 min-w-0 w-full">
+                          <span className="w-2.5 h-2.5 rounded-full bg-[#4ae176] shadow-[0_0_8px_#4ae176] shrink-0"></span>
+                          <div className="min-w-0 flex-1">
+                            <span className="font-['JetBrains_Mono'] text-sm sm:text-base text-[#F5F8FF] font-semibold block truncate">
+                              wpvoxel
+                            </span>
+                            <span className="text-[11px] sm:text-xs text-[#bbc9cf] font-['JetBrains_Mono'] block truncate">
+                              ID: 291955215446441984
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Linha inferior: Botões ocupando 100% ou alinhados com espaçamento seguro */}
+                        <div className="flex items-center gap-2 w-full justify-start pt-2 border-t border-[#1e2a3d]">
+                          <button
+                            type="button"
+                            onClick={handleCopyDiscord}
+                            className="flex-1 sm:flex-initial px-3 py-2 bg-[#142032] hover:bg-[#1e2a3d] text-[#67E8F9] font-['JetBrains_Mono'] text-xs uppercase flex items-center justify-center gap-1.5 transition-colors border border-[#3c494e]/40"
+                          >
+                            <span className="material-symbols-outlined text-[14px]">
+                              {copiedDiscord ? "done" : "content_copy"}
+                            </span>
+                            <span>{copiedDiscord ? "Copied!" : "Copy"}</span>
+                          </button>
+
+                          <a
+                            className="flex-1 sm:flex-initial px-3 py-2 bg-[#142032] hover:bg-[#1e2a3d] text-[#67E8F9] font-['JetBrains_Mono'] text-xs uppercase flex items-center justify-center gap-1.5 transition-colors border border-[#3c494e]/40"
+                            href="https://discord.com/users/291955215446441984"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            <span className="material-symbols-outlined text-[14px]">
+                              link
+                            </span>
+                            <span>Connect</span>
+                          </a>
+                        </div>
+                      </div>
+
+                      <p className="text-xs sm:text-sm text-[#bbc9cf] mt-4 leading-relaxed">
+                        Active daily. Click above to open my profile directly,
+                        send a DM, or discuss your server's plugin requirements.
+                      </p>
+                    </div>
+
+                    {/* Direct Email Card */}
+                    <div className="bg-[#0B1F38]/95 border border-[#00b954]/20 p-5 sm:p-8 shadow-xl group hover:border-[#67E8F9]/40 transition-colors">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-3">
+                        <div className="flex items-center gap-4 min-w-0">
+                          <div className="w-12 h-12 bg-[#293549] text-[#67E8F9] flex items-center justify-center shadow-inner shrink-0">
+                            <span className="material-symbols-outlined text-[26px]">
+                              mail
+                            </span>
+                          </div>
+                          <div className="min-w-0">
+                            <span className="font-['JetBrains_Mono'] text-xs text-[#859399] uppercase tracking-wider block font-semibold truncate">
+                              OFFICIAL EMAIL
+                            </span>
+                            <h3 className="text-lg sm:text-xl font-bold text-[#F5F8FF] uppercase truncate">
+                              Commission Inquiries
+                            </h3>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
+                          <button
+                            type="button"
+                            onClick={handleCopyEmail}
+                            className="px-3 py-1.5 bg-[#142032] hover:bg-[#1e2a3d] text-[#67E8F9] font-['JetBrains_Mono'] text-xs uppercase flex items-center gap-1.5 transition-colors border border-[#3c494e]/40"
+                          >
+                            <span className="material-symbols-outlined text-[14px]">
+                              {copiedEmail ? "done" : "content_copy"}
+                            </span>
+                            <span>{copiedEmail ? "Copied" : "Copy"}</span>
+                          </button>
+                          <a
+                            className="inline-flex items-center gap-2 px-4 py-1.5 sm:py-2 bg-[#142032] hover:bg-[#293549] text-[#67E8F9] font-['JetBrains_Mono'] text-xs uppercase tracking-wider transition-colors border border-[#3c494e]/40"
+                            href="mailto:pereirawelton206@gmail.com"
+                          >
+                            <span className="material-symbols-outlined text-[16px]">
+                              send
+                            </span>
+                            <span>Send</span>
+                          </a>
+                        </div>
+                      </div>
+
+                      {/* Adicionado break-all para o email não estourar em telas de celular muito pequenas */}
+                      <div className="bg-[#030e20] p-3 font-['JetBrains_Mono'] text-xs sm:text-sm text-[#4ae176] border border-[#1e2a3d] break-all">
+                        pereirawelton206@gmail.com
                       </div>
                     </div>
 
-                    <p className="text-xs sm:text-sm text-[#bbc9cf] mt-4 leading-relaxed">
-                      Active daily. Click above to open my profile directly,
-                      send a DM, or discuss your server's plugin requirements.
-                    </p>
-                  </div>
-
-                {/* Direct Email Card */}
-                <div className="bg-[#0B1F38]/95 border border-[#00b954]/20 p-6 sm:p-8 shadow-xl group hover:border-[#67E8F9]/40 transition-colors">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-3">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-[#293549] text-[#67E8F9] flex items-center justify-center shadow-inner">
-                        <span className="material-symbols-outlined text-[26px]">mail</span>
-                      </div>
-                      <div>
-                        <span className="font-['JetBrains_Mono'] text-xs text-[#859399] uppercase tracking-wider block font-semibold">
-                          OFFICIAL EMAIL
+                    {/* Quick Process Info Note */}
+                    <div className="bg-[#0f1c2e] border border-[#1e2a3d] p-5 shadow-lg">
+                      <div className="flex items-center gap-2 mb-2 font-['JetBrains_Mono'] text-xs text-[#4ae176] uppercase font-bold">
+                        <span className="material-symbols-outlined text-[16px]">
+                          terminal
                         </span>
-                        <h3 className="text-xl font-bold text-[#F5F8FF] uppercase">
-                          Commission Inquiries
+                        <span>COMMISSION PROCESS READY</span>
+                      </div>
+                      <p className="text-xs text-[#bbc9cf] leading-relaxed">
+                        Check the Frequently Asked Questions for details on
+                        software compatibility, pricing, and project timelines.
+                        When you have your idea ready, reach out on Discord or
+                        Email to get started!
+                      </p>
+                    </div>
+                  </FadeIn>
+                </div>
+
+                {/* Frequently Asked Questions (FAQ) - Replaces Commission Dispatch Form (7 cols) */}
+                <div className="lg:col-span-7 bg-[#0B1F38]/95 border border-[#1e2a3d] hover:border-[#67E8F9]/40 p-5 sm:p-8 shadow-2xl relative transition-colors w-full min-w-0">
+                  <FadeIn direction="left">
+                    {/* Terminal Header */}
+                    <div className="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-[#1e2a3d] gap-2">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#FF4D4F]"></span>
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#FFA726]"></span>
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#4ae176]"></span>
+                        <h3 className="font-['JetBrains_Mono'] text-xs sm:text-sm text-[#F5F8FF] uppercase ml-1 font-bold">
+                          FREQUENTLY ASKED QUESTIONS
                         </h3>
                       </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button
-                        type="button"
-                        onClick={handleCopyEmail}
-                        className="px-3 py-1.5 bg-[#142032] hover:bg-[#1e2a3d] text-[#67E8F9] font-['JetBrains_Mono'] text-xs uppercase flex items-center gap-1.5 transition-colors border border-[#3c494e]/40"
-                      >
-                        <span className="material-symbols-outlined text-[14px]">
-                          {copiedEmail ? 'done' : 'content_copy'}
-                        </span>
-                        <span>{copiedEmail ? 'Copied' : 'Copy'}</span>
-                      </button>
-                      <a
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-[#142032] hover:bg-[#293549] text-[#67E8F9] font-['JetBrains_Mono'] text-xs uppercase tracking-wider transition-colors border border-[#3c494e]/40"
-                        href="mailto:commissions@voxelforcedev.com"
-                      >
-                        <span className="material-symbols-outlined text-[16px]">send</span>
-                        <span>Send Email</span>
-                      </a>
-                    </div>
-                  </div>
-                  <div className="bg-[#030e20] p-3 font-['JetBrains_Mono'] text-sm text-[#4ae176] border border-[#1e2a3d]">
-                    commissions@voxelforcedev.com
-                  </div>
-                </div>
-
-                {/* Quick Process Info Note */}
-                <div className="bg-[#0f1c2e] border border-[#1e2a3d] p-5 shadow-lg">
-                  <div className="flex items-center gap-2 mb-2 font-['JetBrains_Mono'] text-xs text-[#4ae176] uppercase font-bold">
-                    <span className="material-symbols-outlined text-[16px]">terminal</span>
-                    <span>COMMISSION PROCESS READY</span>
-                  </div>
-                  <p className="text-xs text-[#bbc9cf] leading-relaxed">
-                    Check the Frequently Asked Questions for details on software compatibility, pricing, and project timelines. When you have your idea ready, reach out on Discord or Email to get started!
-                  </p>
-                </div>
-              </div>
-
-              {/* Frequently Asked Questions (FAQ) - Replaces Commission Dispatch Form (7 cols) */}
-              <div className="lg:col-span-7 bg-[#0B1F38]/95 border border-[#1e2a3d] hover:border-[#67E8F9]/40 p-6 sm:p-8 shadow-2xl relative transition-colors">
-                {/* Terminal Header */}
-                <div className="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-[#1e2a3d] gap-2">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#FF4D4F]"></span>
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#FFA726]"></span>
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#4ae176]"></span>
-                    <h3 className="font-['JetBrains_Mono'] text-xs sm:text-sm text-[#F5F8FF] uppercase ml-1 font-bold">
-                      FREQUENTLY ASKED QUESTIONS
-                    </h3>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="font-['JetBrains_Mono'] text-[11px] text-[#67E8F9] uppercase bg-[#030e20] px-2 py-0.5 border border-[#1e2a3d]">
-                      &lt;7 VERIFIED ANSWERS&gt;
-                    </span>
-                    <button
-                      type="button"
-                      onClick={toggleAllFaqs}
-                      className="font-['JetBrains_Mono'] text-[10px] text-[#bbc9cf] hover:text-[#67E8F9] uppercase underline underline-offset-4 cursor-pointer transition-colors"
-                    >
-                      {openFaqIds.length === FAQ_ITEMS.length ? 'Collapse All' : 'Expand All'}
-                    </button>
-                  </div>
-                </div>
-
-                {/* FAQ Items Accordion */}
-                <div className="space-y-3">
-                  {FAQ_ITEMS.map((item) => {
-                    const isOpen = openFaqIds.includes(item.id);
-                    return (
-                      <div
-                        key={item.id}
-                        className={`border transition-all duration-200 overflow-hidden ${
-                          isOpen
-                            ? 'bg-[#0f1c2e] border-[#67E8F9]/50 shadow-md'
-                            : 'bg-[#030e20]/80 border-[#1e2a3d] hover:border-[#3c494e]'
-                        }`}
-                      >
+                      <div className="flex items-center gap-3">
                         <button
                           type="button"
-                          onClick={() => toggleFaq(item.id)}
-                          aria-expanded={isOpen}
-                          className="w-full p-4 flex items-center justify-between gap-3 text-left cursor-pointer group select-none"
+                          onClick={toggleAllFaqs}
+                          className="font-['JetBrains_Mono'] text-[10px] text-[#bbc9cf] hover:text-[#67E8F9] uppercase underline underline-offset-4 cursor-pointer transition-colors"
                         >
-                          <div className="flex items-center gap-3 flex-1">
-                            <span
-                              className={`font-['JetBrains_Mono'] text-xs font-bold px-2 py-0.5 border transition-colors ${
-                                isOpen
-                                  ? 'bg-[#142032] text-[#67E8F9] border-[#67E8F9]/40'
-                                  : 'bg-[#081528] text-[#859399] border-[#1e2a3d] group-hover:text-[#67E8F9]'
-                              }`}
-                            >
-                              0{item.id}
-                            </span>
-                            <span className="text-sm sm:text-base font-bold text-[#F5F8FF] group-hover:text-[#67E8F9] transition-colors leading-snug">
-                              {item.question.replace(/^\d+\.\s*/, '')}
-                            </span>
-                          </div>
+                          {openFaqIds.length === FAQ_ITEMS.length
+                            ? "Collapse All"
+                            : "Expand All"}
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* FAQ Items Accordion */}
+                    <div className="space-y-3">
+                      {FAQ_ITEMS.map((item) => {
+                        const isOpen = openFaqIds.includes(item.id);
+                        return (
                           <div
-                            className={`w-6 h-6 rounded flex items-center justify-center bg-[#142032] border border-[#1e2a3d] text-[#67E8F9] transition-transform duration-200 flex-shrink-0 ${
-                              isOpen ? 'rotate-180 bg-[#1e2a3d]' : ''
+                            key={item.id}
+                            className={`border transition-all duration-200 overflow-hidden ${
+                              isOpen
+                                ? "bg-[#0f1c2e] border-[#67E8F9]/50 shadow-md"
+                                : "bg-[#030e20]/80 border-[#1e2a3d] hover:border-[#3c494e]"
                             }`}
                           >
-                            <span className="material-symbols-outlined text-[18px]">
-                              expand_more
-                            </span>
-                          </div>
-                        </button>
+                            <button
+                              type="button"
+                              onClick={() => toggleFaq(item.id)}
+                              aria-expanded={isOpen}
+                              className="w-full p-4 flex items-center justify-between gap-3 text-left cursor-pointer group select-none"
+                            >
+                              <div className="flex items-center gap-3 flex-1">
+                                <span
+                                  className={`font-['JetBrains_Mono'] text-xs font-bold px-2 py-0.5 border transition-colors ${
+                                    isOpen
+                                      ? "bg-[#142032] text-[#67E8F9] border-[#67E8F9]/40"
+                                      : "bg-[#081528] text-[#859399] border-[#1e2a3d] group-hover:text-[#67E8F9]"
+                                  }`}
+                                >
+                                  0{item.id}
+                                </span>
+                                <span className="text-sm sm:text-base font-bold text-[#F5F8FF] group-hover:text-[#67E8F9] transition-colors leading-snug">
+                                  {item.question.replace(/^\d+\.\s*/, "")}
+                                </span>
+                              </div>
+                              <div
+                                className={`w-6 h-6 rounded flex items-center justify-center bg-[#142032] border border-[#1e2a3d] text-[#67E8F9] transition-transform duration-200 flex-shrink-0 ${
+                                  isOpen ? "rotate-180 bg-[#1e2a3d]" : ""
+                                }`}
+                              >
+                                <span className="material-symbols-outlined text-[18px]">
+                                  expand_more
+                                </span>
+                              </div>
+                            </button>
 
-                        {isOpen && (
-                          <div className="px-4 pb-4 pt-1 border-t border-[#1e2a3d]/60 text-xs sm:text-sm text-[#bbc9cf] leading-relaxed space-y-2 animate-in fade-in duration-200">
-                            {item.answer.map((para, pIdx) => (
-                              <p key={pIdx}>{para}</p>
-                            ))}
+                            {isOpen && (
+                              <div className="px-4 pb-4 pt-1 border-t border-[#1e2a3d]/60 text-xs sm:text-sm text-[#bbc9cf] leading-relaxed space-y-2 animate-in fade-in duration-200">
+                                {item.answer.map((para, pIdx) => (
+                                  <p key={pIdx}>{para}</p>
+                                ))}
+                              </div>
+                            )}
                           </div>
-                        )}
+                        );
+                      })}
+                    </div>
+
+                    {/* FAQ Footer Info */}
+                    <div className="mt-6 pt-4 border-t border-[#1e2a3d] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#859399] font-['JetBrains_Mono']">
+                      <div className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#4ae176]"></span>
+                        <span>READY FOR NEW COMMISSIONS</span>
                       </div>
-                    );
-                  })}
-                </div>
-
-                {/* FAQ Footer Info */}
-                <div className="mt-6 pt-4 border-t border-[#1e2a3d] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#859399] font-['JetBrains_Mono']">
-                  <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#4ae176]"></span>
-                    <span>READY FOR NEW COMMISSIONS</span>
-                  </div>
-                  <span className="text-[#67E8F9]">EST. RESPONSE: &lt; 24H</span>
+                      <span className="text-[#67E8F9]">
+                        EST. RESPONSE: &lt; 24H
+                      </span>
+                    </div>
+                  </FadeIn>
                 </div>
               </div>
-            </div>
+            </FadeIn>
           </div>
         </section>
       </main>
