@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  validateCommissionBrief,
-  CommissionBrief,
-} from "./utils/formValidation.ts";
+
 import { copyToClipboard } from "./utils/clipboard.ts";
 import logoImg from "./assets/images/logo.webp";
 import skinRig from "./assets/images/rig.webp";
@@ -302,16 +299,6 @@ export default function App() {
     }, 220);
   };
 
-  // Form State
-  const [briefForm, setBriefForm] = useState<CommissionBrief>({
-    clientName: "",
-    contactTag: "",
-    platform: "PaperMC (1.20+)",
-    projectType: "Custom New Plugin",
-    scopeDescription: "",
-  });
-  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
-
   // Hero Video State & Controls
   const videoRef = React.useRef<HTMLVideoElement | null>(null);
   const pauseTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
@@ -396,22 +383,6 @@ export default function App() {
     await copyToClipboard("commissions@voxelforcedev.com");
     setCopiedEmail(true);
     setTimeout(() => setCopiedEmail(false), 2500);
-  };
-
-  const handleFormChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => {
-    const { name, value } = e.target;
-    setBriefForm((prev) => ({ ...prev, [name]: value }));
-    if (formErrors[name]) {
-      setFormErrors((prev) => {
-        const updated = { ...prev };
-        delete updated[name];
-        return updated;
-      });
-    }
   };
 
   const filteredProjects =
