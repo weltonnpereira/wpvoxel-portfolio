@@ -1,109 +1,101 @@
-# Dynamic Hero Video Background & High-Impact Bat Flock Scaling
+# In-Site Plugin Demo Video Modal
 
-This plan outlines the architecture and execution strategy to transform the Hero section into a dynamic, cinematic experience with an ambient looping Minecraft video background (complete with audio/playback toggles and instant poster fallback) and scale the animated bats to 2x–3x their current size, distributing a flock of 6–8 bats across multiple elevation depths and flight patterns.
+A responsive, high-fidelity cinematic theater modal enabling visitors to watch Minecraft plugin demonstration videos directly on the portfolio website without leaving the page.
 
----
-
-### User Review & Critical Decisions
+## User Review & Critical Decisions
 
 > [!IMPORTANT]
-> The following user preferences were confirmed during the interactive Phase 1 consultation:
-
-- **Hero Video Background**: Configured as an ambient cinematic Minecraft loop with a high-fidelity poster image fallback and interactive overlay controls (Mute/Unmute, Pause/Play, and status badge).
-- **Bat Scale & Distribution**: Bats are expanded from 56–72px to prominent 110–180px silhouettes (2x to 3x larger), organized into a flock of 7 bats traversing different depths (foreground, mid-ground, and background altitudes) with natural horizontal direction flipping (`scaleX(-1)`) and swooping flight keyframes.
-
----
-
-### 1. Overview & Core Concept
-
-- **What It Does**: Upgrades the visual presence of the WP Voxel landing page by replacing the static hero canvas with a rich, looping cinematic Minecraft world video and enlivening the nocturnal starry portfolio background with a noticeable, atmospheric swarm of flying bats.
-- **Target Audience**: Server owners, network managers, and Minecraft studio directors evaluating custom plugin engineering and network performance.
-- **Key Value**: Delivers immediate visual immersion and dynamic energy while maintaining strict WCAG AA text legibility and zero main-thread CPU drag.
+> The following architectural and UX decisions were confirmed during clarification:
+> - **Modal Trigger**: Triggered via both a dedicated "Watch on Site" button in the project card actions and by directly clicking the video preview container on each card.
+> - **Modal Experience**: Cinematic theater lightbox presenting an unobstructed 16:9 responsive YouTube player, accompanied by the plugin title, platform tag, and quick external links (YouTube, GitHub, SpigotMC, Hangar).
+> - **Multi-Device Responsiveness**: Fully responsive overlay adapting seamlessly from compact mobile viewports to ultra-wide desktop monitors with strict aspect-ratio enforcement.
 
 ---
 
-### 2. User Experience & Visual Design
+## 1. Overview & Core Concept
 
-#### A. Hero Video Architecture & Controls
-- **Background Layering**:
-  - `video` element with attributes: `autoPlay`, `loop`, `muted`, `playsInline`, and `poster={ASSETS.heroWallpaper}`.
-  - Multi-stop darkness scrim: `linear-gradient` from `rgba(7, 20, 38, 0.85)` to `rgba(7, 20, 38, 0.95)` with radial photon glow and subtle voxel grid lines to ensure all hero typography and metrics exceed 4.5:1 contrast.
-  - Ambient video controls widget positioned subtly in the bottom-right of the hero:
-    - **Play / Pause** toggle with live icon indicator.
-    - **Audio Mute / Unmute** toggle (starts muted by default to adhere to browser autoplay policies).
-    - Status pill: `[Cinematic 1080p Loop]`.
-  - Seamless fallback: If the video fails or is delayed, the high-resolution static landscape wallpaper seamlessly displays without layout shift.
-
-#### B. Nocturnal Bat Flock Scaling & Distribution
-- **Scale Increase**:
-  - Small bats: 110px $\times$ 110px (was ~56px).
-  - Medium bats: 140px $\times$ 140px (was ~64px).
-  - Large foreground bats: 180px $\times$ 180px (was ~72px).
-- **Flock Distribution (7 Staggered Trajectories)**:
-  1. *Bat Alpha (High Altitude, Left-to-Right)*: 140px, speed 15s, upper canopy path.
-  2. *Bat Beta (Upper-Mid, Right-to-Left)*: 120px, speed 19s, delay 2s, sweeping dive.
-  3. *Bat Gamma (Foreground Lead, Left-to-Right)*: 180px, speed 13s, delay 5s, deep swoop with enhanced drop-shadow.
-  4. *Bat Delta (Mid-Depth, Left-to-Right)*: 110px, speed 17s, delay 7s, erratic flutter.
-  5. *Bat Epsilon (Center-Flock, Right-to-Left)*: 160px, speed 14s, delay 9s, diving cross-screen.
-  6. *Bat Zeta (Lower-Mid, Left-to-Right)*: 130px, speed 21s, delay 4s, slow cruising speed.
-  7. *Bat Eta (Low Horizon, Right-to-Left)*: 150px, speed 16s, delay 11s, low skimming flight.
-- **Flight Motion Enhancements**:
-  - Horizontal flipping (`scaleX(-1)` vs `scaleX(1)`) according to travel vector.
-  - Organic wing wobble and vertical swoops via composited CSS `@keyframes`.
-  - `pointer-events-none` ensuring zero interference with cards or interactive project links.
+- **What It Does**: Allows visitors to launch and watch plugin video showcases directly in a dark-themed, theater-style lightbox overlay. Users can interact with the video in full resolution and follow direct resource links while remaining immersed in the portfolio.
+- **Target Audience**: Minecraft server owners, network administrators, and developers reviewing plugin mechanics, TPS efficiency, and gameplay systems.
+- **Key Value**: Eliminates external tab-switching friction and provides a high-retention, focused viewing experience across mobile, tablet, and desktop devices.
 
 ---
 
-### 3. Key Product Decisions & Trade-Offs
+## 2. User Experience & Visual Design
 
-- **Decision 1: HTML5 Native `<video>` vs. YouTube iFrame**
-  - *Chosen Approach*: Native HTML5 `<video>` using direct streaming video format with static poster fallback.
-  - *Why*: Eliminates heavy third-party YouTube branding, cookie trackers, and iframe security overhead. Enables instant start and programmatic mute/play control.
-- **Decision 2: Pure CSS Keyframe Animation vs. Canvas Sprite Simulation**
-  - *Chosen Approach*: Pure CSS 3D hardware-accelerated animations (`translate3d`, `rotate`, `scale`).
-  - *Why*: Zero JavaScript tick overhead on the main thread, 60fps hardware acceleration, and full responsiveness across mobile, tablet, and ultra-wide displays.
+### Key User Flows
+
+1. **Discovery & Trigger**:
+   - On the "Featured Systems & Production Plugins" grid, each card features a prominent **"Watch on Site"** button alongside the existing action buttons.
+   - Hovering over the card video container displays an obsidian overlay with a play glyph and `CLICK TO EXPAND` hint.
+2. **Modal Launch**:
+   - Clicking either the "Watch on Site" button or the card video container immediately opens the modal with a smooth fade and subtle scale-up transition (`duration-200`).
+   - Background scroll is locked (`overflow: hidden` on `document.body`) to prevent background jump.
+3. **Theater Viewing**:
+   - **Header Bar**: Displays the plugin title in bold crisp typography, the target platform (e.g. `Paper 1.20+`, `Purpur / Spigot`, `Folia Ready`), and a prominent high-contrast close button (`✕` with `[ESC]` badge).
+   - **Video Stage**: Rigid 16:9 container with YouTube nocookie embed initialized with autoplay (`?autoplay=1&rel=0&modestbranding=1`).
+   - **Action Bar**: Bottom tray providing direct external links to YouTube, GitHub (if open-source), SpigotMC, and Paper Hangar.
+4. **Dismissal**:
+   - The modal can be closed via the close button, pressing the `ESC` key, or clicking the semi-transparent backdrop (`bg-black/85 backdrop-blur-md`).
+   - When closed, the video unmounts cleanly to stop audio playback immediately.
+
+### Visual Identity & Theme
+
+- **Aesthetic**: Obsidian terminal / cyberpunk Minecraft developer palette (`#030e20`, `#0B1F38`, `#142032`, `#67E8F9`, `#00b954`).
+- **Typography**: Display font for titles, `JetBrains Mono` for platform badges, action buttons, and keyboard shortcut indicators.
+- **Geometry & Spatial Math**:
+  - Max container width: `max-w-4xl` (960px) on desktop, scaling smoothly down to 100% width minus padding on mobile.
+  - Video aspect ratio: strict `aspect-video` (16:9) preventing layout distortion or black bars.
 
 ---
 
-### 4. Technical Architecture & Component Flow
+## 3. Key Product Decisions & Trade-Offs
+
+- **Decision 1: Direct Video Click & Action Button Dual-Affordance**
+  - *Chosen Approach*: Wire both the video preview container and a dedicated action button on each card.
+  - *Why*: Provides immediate visual affordance for both power users clicking media and casual users looking for labelled buttons.
+- **Decision 2: Body Scroll Lock & Lifecycle Cleanup**
+  - *Chosen Approach*: Manage body overflow via a `useEffect` hook in React (and DOM class toggle in standalone HTML), alongside unmounting the iframe on modal close.
+  - *Why*: Eliminates background page jumping on mobile touch devices and prevents phantom video audio from continuing to play after dismissal.
+- **Decision 3: Standalone Mirroring**
+  - *Chosen Approach*: Implement the modal in both `src/App.tsx` and `public/standalone-landing.html`.
+  - *Why*: Ensures the single-file offline distribution remains 100% feature-complete with the React SPA.
+
+---
+
+## 4. Technical Architecture & Component Mapping
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                       Hero Section                          │
-│                                                             │
-│  ┌───────────────────────────────────────────────────────┐  │
-│  │ HTML5 Looping Cinematic Video (Poster Image Fallback) │  │
-│  └───────────────────────────────────────────────────────┘  │
-│  ┌───────────────────────────────────────────────────────┐  │
-│  │ Multi-tier Contrast Scrims (Navy Gradient + Glow)     │  │
-│  └───────────────────────────────────────────────────────┘  │
-│  ┌─────────────────────────────────┐ ┌───────────────────┐  │
-│  │ Hero Content (H1, CTA, Metrics) │ │ Minecraft Rig 3D  │  │
-│  └─────────────────────────────────┘ └───────────────────┘  │
-│                                      [Play/Mute Control]    │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                 Featured Projects Section                   │
-│                                                             │
-│  ┌───────────────────────────────────────────────────────┐  │
-│  │ Starry Night Sky Horizon + Dark Mountain Vignette     │  │
-│  └───────────────────────────────────────────────────────┘  │
-│  ┌───────────────────────────────────────────────────────┐  │
-│  │ 7 Scaled Bats Flock (110px-180px) Multi-Path Flight   │  │
-│  │ (Compositor-only transforms: translate3d + scaleX)    │  │
-│  └───────────────────────────────────────────────────────┘  │
-│  ┌───────────────────────────────────────────────────────┐  │
-│  │ 3-Column Architectural Project Cards & Inspector      │  │
-│  └───────────────────────────────────────────────────────┘  │
-└─────────────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────┐
+│                   App.tsx (Root State)                 │
+│  activeModalProject: ProjectDetails | null             │
+└────────────┬───────────────────────────────┬───────────┘
+             │                               │
+             ▼                               ▼
+┌─────────────────────────┐     ┌────────────────────────┐
+│ Project Showcase Cards  │     │   PluginVideoModal     │
+│ - Preview click handler │     │ - Backdrop blur & lock │
+│ - "Watch on Site" button│────▶│ - Top title/ESC bar    │
+│ - External resource links│    │ - 16:9 Iframe Stage    │
+└─────────────────────────┘     │ - Bottom action grid   │
+                                └────────────────────────┘
 ```
 
-### 5. Verification & Testing Strategy
+### State & Event Handlers
 
-1. **Functional Unit Tests**: Run `npx --yes tsx --test src/utils/formValidation.test.ts` to ensure zero regressions in existing logic.
-2. **Visual & Responsive Verification via Playwright**:
-   - Verify video autoplay behavior, poster loading, and play/pause/mute toggle functionality.
-   - Verify that all 7 bats render at 2x–3x size and traverse across desktop (`1440x900`) and mobile (`390x844`) without horizontal overflow or clipping.
-   - Verify standalone HTML file (`public/standalone-landing.html`) reflects identical video and bat upgrades.
+- `activeModalProject`: `ProjectDetails | null` state tracking which plugin is currently presented in the modal.
+- `openModal(project: ProjectDetails)`: Sets active project, locks body scroll.
+- `closeModal()`: Resets active project to `null`, unlocks body scroll, unmounts YouTube iframe.
+- `handleKeyDown(e: KeyboardEvent)`: Listens for `Escape` key to dismiss modal.
+
+---
+
+## 5. Verification Plan
+
+1. **Compilation & Syntax**: Run `compile_applet` and `lint_applet` to ensure zero build errors or TypeScript issues.
+2. **Interactive Testing**:
+   - Open modal for each of the 3 featured plugins (Parkour, Custom Enchants, Folia Minigames).
+   - Test dismissal via close button, backdrop click, and `ESC` key.
+   - Verify audio immediately stops upon dismissal.
+   - Verify all external action links (YouTube, GitHub, Spigot, Hangar) inside the modal open correctly in new tabs.
+3. **Responsiveness Audit**: Verify modal layout, margins, and video scaling on mobile (375px), tablet (768px), and desktop (1440px).
+4. **Unit Tests**: Run `npx tsx --test src/utils/formValidation.test.ts` to ensure regression safety.

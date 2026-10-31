@@ -673,6 +673,142 @@
       border-color: #00b954;
       color: #ffffff;
     }
+    .btn-watch-site {
+      background: rgba(103, 232, 249, 0.1);
+      border: 1px solid rgba(103, 232, 249, 0.4);
+      color: var(--cyan-beacon);
+      width: 100%;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.625rem 0.75rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-watch-site:hover {
+      background: rgba(103, 232, 249, 0.25);
+      border-color: var(--cyan-beacon);
+      color: #ffffff;
+    }
+    .video-expand-overlay-btn {
+      position: absolute;
+      top: 0.625rem;
+      right: 0.625rem;
+      z-index: 10;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.25rem 0.625rem;
+      background: rgba(3, 14, 32, 0.9);
+      border: 1px solid var(--surface-container-high);
+      color: var(--cyan-beacon);
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(4px);
+    }
+    .video-expand-overlay-btn:hover {
+      background: var(--surface-navy);
+      border-color: var(--cyan-beacon);
+      transform: scale(1.05);
+    }
+    .video-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .video-modal-backdrop.active {
+      display: flex;
+      opacity: 1;
+    }
+    .video-modal-dialog {
+      width: 100%;
+      max-width: 900px;
+      background: var(--surface-navy);
+      border: 1px solid var(--surface-container-high);
+      box-shadow: 0 0 50px rgba(0,0,0,0.85);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transform: scale(0.96);
+      transition: transform 0.2s ease;
+    }
+    .video-modal-backdrop.active .video-modal-dialog {
+      transform: scale(1);
+    }
+    .modal-accent-bar {
+      height: 4px;
+      width: 100%;
+    }
+    .modal-header {
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--surface-container-high);
+      background: rgba(7, 20, 38, 0.9);
+      gap: 0.75rem;
+    }
+    .modal-body {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--surface-container-lowest);
+      position: relative;
+    }
+    .modal-body iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .modal-footer {
+      padding: 1rem 1.25rem;
+      background: rgba(7, 20, 38, 0.9);
+      border-top: 1px solid var(--surface-container-high);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .modal-close-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.375rem 0.75rem;
+      background: var(--surface-container);
+      border: 1px solid var(--surface-container-high);
+      color: var(--on-surface-variant);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .modal-close-btn:hover {
+      background: var(--surface-container-highest);
+      border-color: var(--cyan-beacon);
+      color: var(--text-crisp);
+    }
 
     /* Services Grid */
     .services-grid {
@@ -1019,7 +1155,11 @@
                 Parkour + Steam to Earn
               </h3>
               <!-- YouTube Showcase Video Container -->
-              <div class="project-video-wrapper">
+              <div class="project-video-wrapper" style="cursor: pointer;" onclick="openPluginModal('parkour')">
+                <button type="button" class="video-expand-overlay-btn" onclick="event.stopPropagation(); openPluginModal('parkour');" title="Expand demo into on-site theater modal">
+                  <span class="material-symbols-outlined" style="font-size: 14px;">open_in_full</span>
+                  <span>Expand</span>
+                </button>
                 <div class="video-skeleton">
                   <div class="skeleton-shimmer-sweep"></div>
                   <div style="display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 2;">
@@ -1062,19 +1202,26 @@
                 <span style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--secondary); background: var(--surface-container); padding: 0.125rem 0.5rem;">Redis</span>
               </div>
               <!-- Action Buttons -->
-              <div class="project-action-grid">
-                <a href="https://www.youtube.com/watch?v=mC64F_o7N7A" target="_blank" rel="noopener noreferrer" class="project-action-btn btn-demo" title="Watch demo on YouTube">
-                  <span class="material-symbols-outlined" style="font-size: 14px;">smart_display</span>
-                  <span>Show Demo</span>
-                </a>
-                <a href="https://github.com/wpvoxel/parkour-steam-integration" target="_blank" rel="noopener noreferrer" class="project-action-btn btn-github" title="View open-source repository on GitHub">
-                  <span class="material-symbols-outlined" style="font-size: 14px;">code</span>
-                  <span>View Code</span>
-                </a>
-                <a href="https://hangar.papermc.io/wpvoxel/ParkourSteam" target="_blank" rel="noopener noreferrer" class="project-action-btn btn-hangar" style="grid-column: span 2;" title="View resource on Paper Hangar">
-                  <span class="material-symbols-outlined" style="font-size: 14px;">description</span>
-                  <span>Hangar (PaperMC)</span>
-                </a>
+              <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--surface-container-high);">
+                <button type="button" class="btn-watch-site" onclick="openPluginModal('parkour')" title="Watch demo in on-site theater">
+                  <span class="material-symbols-outlined" style="font-size: 16px;">play_circle</span>
+                  <span>Watch on Site</span>
+                  <span class="material-symbols-outlined" style="font-size: 14px; margin-left: auto; opacity: 0.7;">open_in_full</span>
+                </button>
+                <div class="project-action-grid" style="margin-top: 0; padding-top: 0; border-top: 0;">
+                  <a href="https://www.youtube.com/watch?v=mC64F_o7N7A" target="_blank" rel="noopener noreferrer" class="project-action-btn btn-demo" title="Watch demo on YouTube">
+                    <span class="material-symbols-outlined" style="font-size: 14px;">smart_display</span>
+                    <span>Show Demo</span>
+                  </a>
+                  <a href="https://github.com/wpvoxel/parkour-steam-integration" target="_blank" rel="noopener noreferrer" class="project-action-btn btn-github" title="View open-source repository on GitHub">
+                    <span class="material-symbols-outlined" style="font-size: 14px;">code</span>
+                    <span>View Code</span>
+                  </a>
+                  <a href="https://hangar.papermc.io/wpvoxel/ParkourSteam" target="_blank" rel="noopener noreferrer" class="project-action-btn btn-hangar" style="grid-column: span 2;" title="View resource on Paper Hangar">
+                    <span class="material-symbols-outlined" style="font-size: 14px;">description</span>
+                    <span>Hangar (PaperMC)</span>
+                  </a>
+                </div>
               </div>
             </div>
           </article>
@@ -1095,7 +1242,11 @@
                 Custom Enchants & Arcane Runes
               </h3>
               <!-- YouTube Showcase Video Container -->
-              <div class="project-video-wrapper">
+              <div class="project-video-wrapper" style="cursor: pointer;" onclick="openPluginModal('enchants')">
+                <button type="button" class="video-expand-overlay-btn" onclick="event.stopPropagation(); openPluginModal('enchants');" title="Expand demo into on-site theater modal">
+                  <span class="material-symbols-outlined" style="font-size: 14px;">open_in_full</span>
+                  <span>Expand</span>
+                </button>
                 <div class="video-skeleton">
                   <div class="skeleton-shimmer-sweep"></div>
                   <div style="display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 2;">
@@ -1138,15 +1289,22 @@
                 <span style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--secondary); background: var(--surface-container); padding: 0.125rem 0.5rem;">MiniMessage</span>
               </div>
               <!-- Action Buttons -->
-              <div class="project-action-grid">
-                <a href="https://www.youtube.com/watch?v=7Q3Z0R1F4fU" target="_blank" rel="noopener noreferrer" class="project-action-btn btn-demo" title="Watch demo on YouTube">
-                  <span class="material-symbols-outlined" style="font-size: 14px;">smart_display</span>
-                  <span>Show Demo</span>
-                </a>
-                <a href="https://www.spigotmc.org/resources/custom-enchants-arcane-runes.108420/" target="_blank" rel="noopener noreferrer" class="project-action-btn btn-spigot" title="View resource page on SpigotMC">
-                  <span class="material-symbols-outlined" style="font-size: 14px;">extension</span>
-                  <span>SpigotMC</span>
-                </a>
+              <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--surface-container-high);">
+                <button type="button" class="btn-watch-site" onclick="openPluginModal('enchants')" title="Watch demo in on-site theater">
+                  <span class="material-symbols-outlined" style="font-size: 16px;">play_circle</span>
+                  <span>Watch on Site</span>
+                  <span class="material-symbols-outlined" style="font-size: 14px; margin-left: auto; opacity: 0.7;">open_in_full</span>
+                </button>
+                <div class="project-action-grid" style="margin-top: 0; padding-top: 0; border-top: 0;">
+                  <a href="https://www.youtube.com/watch?v=7Q3Z0R1F4fU" target="_blank" rel="noopener noreferrer" class="project-action-btn btn-demo" title="Watch demo on YouTube">
+                    <span class="material-symbols-outlined" style="font-size: 14px;">smart_display</span>
+                    <span>Show Demo</span>
+                  </a>
+                  <a href="https://www.spigotmc.org/resources/custom-enchants-arcane-runes.108420/" target="_blank" rel="noopener noreferrer" class="project-action-btn btn-spigot" title="View resource page on SpigotMC">
+                    <span class="material-symbols-outlined" style="font-size: 14px;">extension</span>
+                    <span>SpigotMC</span>
+                  </a>
+                </div>
               </div>
             </div>
           </article>
@@ -1167,7 +1325,11 @@
                 Competitive Minigame Systems
               </h3>
               <!-- YouTube Showcase Video Container -->
-              <div class="project-video-wrapper">
+              <div class="project-video-wrapper" style="cursor: pointer;" onclick="openPluginModal('minigames')">
+                <button type="button" class="video-expand-overlay-btn" onclick="event.stopPropagation(); openPluginModal('minigames');" title="Expand demo into on-site theater modal">
+                  <span class="material-symbols-outlined" style="font-size: 14px;">open_in_full</span>
+                  <span>Expand</span>
+                </button>
                 <div class="video-skeleton">
                   <div class="skeleton-shimmer-sweep"></div>
                   <div style="display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 2;">
@@ -1210,23 +1372,30 @@
                 <span style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--secondary); background: var(--surface-container); padding: 0.125rem 0.5rem;">MongoDB</span>
               </div>
               <!-- Action Buttons -->
-              <div class="project-action-grid">
-                <a href="https://www.youtube.com/watch?v=e8x8c1gP69M" target="_blank" rel="noopener noreferrer" class="project-action-btn btn-demo" title="Watch demo on YouTube">
-                  <span class="material-symbols-outlined" style="font-size: 14px;">smart_display</span>
-                  <span>Show Demo</span>
-                </a>
-                <a href="https://github.com/wpvoxel/folia-minigames-engine" target="_blank" rel="noopener noreferrer" class="project-action-btn btn-github" title="View open-source repository on GitHub">
-                  <span class="material-symbols-outlined" style="font-size: 14px;">code</span>
-                  <span>View Code</span>
-                </a>
-                <a href="https://www.spigotmc.org/resources/folia-minigames-engine.112340/" target="_blank" rel="noopener noreferrer" class="project-action-btn btn-spigot" title="View on SpigotMC">
-                  <span class="material-symbols-outlined" style="font-size: 14px;">extension</span>
-                  <span>SpigotMC</span>
-                </a>
-                <a href="https://hangar.papermc.io/wpvoxel/FoliaMinigames" target="_blank" rel="noopener noreferrer" class="project-action-btn btn-hangar" title="View on Paper Hangar">
-                  <span class="material-symbols-outlined" style="font-size: 14px;">description</span>
-                  <span>Hangar</span>
-                </a>
+              <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--surface-container-high);">
+                <button type="button" class="btn-watch-site" onclick="openPluginModal('minigames')" title="Watch demo in on-site theater">
+                  <span class="material-symbols-outlined" style="font-size: 16px;">play_circle</span>
+                  <span>Watch on Site</span>
+                  <span class="material-symbols-outlined" style="font-size: 14px; margin-left: auto; opacity: 0.7;">open_in_full</span>
+                </button>
+                <div class="project-action-grid" style="margin-top: 0; padding-top: 0; border-top: 0;">
+                  <a href="https://www.youtube.com/watch?v=e8x8c1gP69M" target="_blank" rel="noopener noreferrer" class="project-action-btn btn-demo" title="Watch demo on YouTube">
+                    <span class="material-symbols-outlined" style="font-size: 14px;">smart_display</span>
+                    <span>Show Demo</span>
+                  </a>
+                  <a href="https://github.com/wpvoxel/folia-minigames-engine" target="_blank" rel="noopener noreferrer" class="project-action-btn btn-github" title="View open-source repository on GitHub">
+                    <span class="material-symbols-outlined" style="font-size: 14px;">code</span>
+                    <span>View Code</span>
+                  </a>
+                  <a href="https://www.spigotmc.org/resources/folia-minigames-engine.112340/" target="_blank" rel="noopener noreferrer" class="project-action-btn btn-spigot" title="View on SpigotMC">
+                    <span class="material-symbols-outlined" style="font-size: 14px;">extension</span>
+                    <span>SpigotMC</span>
+                  </a>
+                  <a href="https://hangar.papermc.io/wpvoxel/FoliaMinigames" target="_blank" rel="noopener noreferrer" class="project-action-btn btn-hangar" title="View on Paper Hangar">
+                    <span class="material-symbols-outlined" style="font-size: 14px;">description</span>
+                    <span>Hangar</span>
+                  </a>
+                </div>
               </div>
             </div>
           </article>
@@ -1715,6 +1884,41 @@
     </div>
   </footer>
 
+  <!-- Plugin Video Theater Modal -->
+  <div id="plugin-video-modal" class="video-modal-backdrop" onclick="closePluginModal()">
+    <div class="video-modal-dialog" onclick="event.stopPropagation()">
+      <div id="modal-accent-bar" class="modal-accent-bar" style="background: #4ae176;"></div>
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 0.75rem; min-width: 0;">
+          <span style="display: inline-flex; align-items: center; gap: 0.375rem; font-family: var(--font-mono); font-size: 0.6875rem; color: var(--cyan-beacon); background: var(--surface-container-lowest); padding: 0.125rem 0.5rem; border: 1px solid var(--surface-container-high); text-transform: uppercase;">
+            <span style="width: 6px; height: 6px; border-radius: 9999px; background: #4ae176; animation: pulse 1.5s infinite;"></span>
+            Theater Mode
+          </span>
+          <div style="min-width: 0;">
+            <h3 id="modal-plugin-title" style="font-size: 1.125rem; font-weight: 700; color: var(--text-crisp); text-transform: uppercase; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plugin Title</h3>
+            <span id="modal-plugin-subtitle" style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--on-surface-variant);">Paper 1.20+ • Live in Production</span>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="closePluginModal()" aria-label="Close modal">
+          <span>Close</span>
+          <span style="font-size: 0.625rem; color: var(--outline);">[ESC]</span>
+          <span class="material-symbols-outlined" style="font-size: 16px;">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <iframe id="modal-video-iframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+      <div class="modal-footer">
+        <div id="modal-footer-links" style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;">
+          <!-- dynamic action links -->
+        </div>
+        <button type="button" onclick="closePluginModal()" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--outline); background: transparent; border: none; cursor: pointer; margin-left: auto;">
+          Back to Portfolio
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Single-File Clean Script for Client Interactions -->
   <script>
     // Mobile navigation toggle
@@ -1773,6 +1977,104 @@
         toggleMuteBtn.textContent = heroVideo.muted ? 'Unmute' : 'Mute';
       });
     }
+
+    // Plugin Video Modal Data & Handlers
+    const PLUGIN_DATA = {
+      parkour: {
+        title: 'Parkour + Steam to Earn',
+        platform: 'Paper 1.20+',
+        status: 'Live in Production',
+        accentColor: '#4ae176',
+        embedId: 'mC64F_o7N7A',
+        youtubeUrl: 'https://www.youtube.com/watch?v=mC64F_o7N7A',
+        githubUrl: 'https://github.com/wpvoxel/parkour-steam-integration',
+        hangarUrl: 'https://hangar.papermc.io/wpvoxel/ParkourSteam'
+      },
+      enchants: {
+        title: 'Custom Enchants & Arcane Runes',
+        platform: 'Purpur / Spigot',
+        status: 'Modular Engine',
+        accentColor: '#b026ff',
+        embedId: '7Q3Z0R1F4fU',
+        youtubeUrl: 'https://www.youtube.com/watch?v=7Q3Z0R1F4fU',
+        spigotUrl: 'https://www.spigotmc.org/resources/custom-enchants-arcane-runes.108420/'
+      },
+      minigames: {
+        title: 'Competitive Minigame Systems',
+        platform: 'Folia Ready',
+        status: 'Prototype / Testing',
+        accentColor: '#ffa726',
+        embedId: 'e8x8c1gP69M',
+        youtubeUrl: 'https://www.youtube.com/watch?v=e8x8c1gP69M',
+        githubUrl: 'https://github.com/wpvoxel/folia-minigames-engine',
+        spigotUrl: 'https://www.spigotmc.org/resources/folia-minigames-engine.112340/',
+        hangarUrl: 'https://hangar.papermc.io/wpvoxel/FoliaMinigames'
+      }
+    };
+
+    const modalEl = document.getElementById('plugin-video-modal');
+    const modalIframe = document.getElementById('modal-video-iframe');
+    const modalAccentBar = document.getElementById('modal-accent-bar');
+    const modalTitle = document.getElementById('modal-plugin-title');
+    const modalSubtitle = document.getElementById('modal-plugin-subtitle');
+    const modalLinks = document.getElementById('modal-footer-links');
+
+    function openPluginModal(id) {
+      const plugin = PLUGIN_DATA[id];
+      if (!plugin || !modalEl) return;
+      modalAccentBar.style.backgroundColor = plugin.accentColor;
+      modalTitle.textContent = plugin.title;
+      modalSubtitle.textContent = `${plugin.platform} • ${plugin.status}`;
+      modalIframe.src = `https://www.youtube-nocookie.com/embed/${plugin.embedId}?autoplay=1&rel=0&modestbranding=1`;
+
+      let linksHtml = `
+        <a href="${plugin.youtubeUrl}" target="_blank" rel="noopener noreferrer" class="project-action-btn btn-demo" title="Watch demo on YouTube">
+          <span class="material-symbols-outlined" style="font-size: 14px;">smart_display</span>
+          <span>Watch on YouTube</span>
+        </a>
+      `;
+      if (plugin.githubUrl) {
+        linksHtml += `
+          <a href="${plugin.githubUrl}" target="_blank" rel="noopener noreferrer" class="project-action-btn btn-github" title="View repository on GitHub">
+            <span class="material-symbols-outlined" style="font-size: 14px;">code</span>
+            <span>GitHub Repo</span>
+          </a>
+        `;
+      }
+      if (plugin.spigotUrl) {
+        linksHtml += `
+          <a href="${plugin.spigotUrl}" target="_blank" rel="noopener noreferrer" class="project-action-btn btn-spigot" title="View on SpigotMC">
+            <span class="material-symbols-outlined" style="font-size: 14px;">extension</span>
+            <span>SpigotMC</span>
+          </a>
+        `;
+      }
+      if (plugin.hangarUrl) {
+        linksHtml += `
+          <a href="${plugin.hangarUrl}" target="_blank" rel="noopener noreferrer" class="project-action-btn btn-hangar" title="View on Paper Hangar">
+            <span class="material-symbols-outlined" style="font-size: 14px;">description</span>
+            <span>Paper Hangar</span>
+          </a>
+        `;
+      }
+      modalLinks.innerHTML = linksHtml;
+
+      modalEl.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePluginModal() {
+      if (!modalEl) return;
+      modalEl.classList.remove('active');
+      modalIframe.src = '';
+      document.body.style.overflow = 'unset';
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modalEl && modalEl.classList.contains('active')) {
+        closePluginModal();
+      }
+    });
   </script>
 </body>
 </html>
