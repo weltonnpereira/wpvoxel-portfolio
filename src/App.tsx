@@ -49,24 +49,28 @@ const PROJECTS: ProjectDetails[] = [
   {
     id: "parkour",
     title: "Live Parkour",
-    category: "Game Modes",
+    category: "Game Modes & Stream Integration",
     status: "Live in Production",
-    platform: "Paper 1.20+",
+    platform: "Paper 1.20+/1.21+",
     accentColor: "#00b954",
-    youtubeEmbedId: "mC64F_o7N7A",
-    youtubeUrl: "https://www.youtube.com/watch?v=mC64F_o7N7A",
-    isOpenSource: true,
-    githubUrl: "https://github.com/wpvoxel/parkour-steam-integration",
-    hangarUrl: "https://hangar.papermc.io/wpvoxel/ParkourSteam",
+    youtubeEmbedId: "x1GvmT2fS9w",
+    youtubeUrl: "https://www.youtube.com/watch?v=x1GvmT2fS9w",
+    isOpenSource: false,
     description:
-      "Cross-platform integration connecting in-game parkour time-trials and checkpoint mechanics with Steam API verification and automated wallet rewards.",
+      "Interactive Stream-to-Earn plugin connecting real-time live broadcast events with in-game parkour mechanics, dynamic level progression, and automated viewer interaction commands.",
     highlights: [
-      "Movement physics packet validation & anti-exploit verification",
-      "Asynchronous Steam OpenID & Web API token exchange callbacks",
-      "Sub-millisecond Redis checkpoint leaderboard sync & caching",
-      "Tick-level player velocity rollback on invalid block interactions",
+      "Real-time stream event hooks for dynamic player level scaling and interactions",
+      "Robust hardware-locked licensing (HWID) and bytecode obfuscation protection",
+      "Custom phase positioning, checkpoint teleports, and fail-safe rescue mechanics",
+      "Asynchronous command handling optimized for high-performance live streams",
     ],
-    tags: ["Paper API", "Steamworks", "Java 21", "Redis", "PacketEvents"],
+    tags: [
+      "Paper API",
+      "Java",
+      "HWID Security",
+      "Stream Integration",
+      "Custom Mechanics",
+    ],
   },
   {
     id: "enchants",
@@ -380,7 +384,7 @@ export default function App() {
 
   const handleCopyEmail = async (e: React.MouseEvent) => {
     e.preventDefault();
-    await copyToClipboard("commissions@voxelforcedev.com");
+    await copyToClipboard("pereirawelton206@gmail.com");
     setCopiedEmail(true);
     setTimeout(() => setCopiedEmail(false), 2500);
   };
