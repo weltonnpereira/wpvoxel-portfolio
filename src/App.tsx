@@ -129,9 +129,11 @@ const PROJECTS: ProjectDetails[] = [
 function ProjectVideoWithSkeleton({
   title,
   embedId,
+  onOpenModal,
 }: {
   title: string;
   embedId?: string;
+  onOpenModal?: () => void;
 }) {
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -140,7 +142,29 @@ function ProjectVideoWithSkeleton({
   }, [embedId]);
 
   return (
-    <div className="w-full aspect-video bg-[#030e20] border border-[#1e2a3d] mb-4 overflow-hidden relative shadow-inner group/video select-none">
+    <div
+      onClick={onOpenModal}
+      className={`w-full aspect-video bg-[#030e20] border border-[#1e2a3d] mb-4 overflow-hidden relative shadow-inner group/video select-none ${
+        onOpenModal ? 'cursor-pointer hover:border-[#67E8F9]/60' : ''
+      }`}
+    >
+      {/* Expand Theater Overlay Hint Button */}
+      {onOpenModal && embedId && (
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onOpenModal();
+          }}
+          className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1.5 px-2.5 py-1 bg-[#030e20]/90 hover:bg-[#0B1F38] border border-[#1e2a3d] hover:border-[#67E8F9] text-[#67E8F9] text-[11px] font-['JetBrains_Mono'] uppercase tracking-wider transition-all duration-200 cursor-pointer shadow-lg backdrop-blur-sm group-hover/video:scale-105"
+          title="Expand demo video into on-site theater modal"
+          aria-label="Expand demo video in theater modal"
+        >
+          <span className="material-symbols-outlined text-[15px]">open_in_full</span>
+          <span>Expand</span>
+        </button>
+      )}
+
       {/* Subtle Loading Skeleton (Prevents CLS & Layout Shifts while Mounting/Buffering) */}
       <div
         aria-hidden={isLoaded}
@@ -283,6 +307,155 @@ function ProjectCardSkeleton() {
   );
 }
 
+function PluginVideoModal({
+  project,
+  onClose,
+}: {
+  project: ProjectDetails;
+  onClose: () => void;
+}) {
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${project.title} - Video Demo Theater`}
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-in fade-in duration-200"
+      onClick={onClose}
+    >
+      {/* Modal Dialog Window */}
+      <div
+        className="w-full max-w-4xl bg-[#0B1F38] border border-[#1e2a3d] shadow-[0_0_50px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col relative animate-in zoom-in-95 duration-200"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Top Accent Stripe */}
+        <div
+          className="h-1.5 w-full"
+          style={{ backgroundColor: project.accentColor }}
+        ></div>
+
+        {/* Modal Header */}
+        <div className="p-4 sm:p-5 flex items-center justify-between border-b border-[#1e2a3d] bg-[#071426]/90 gap-3">
+          <div className="flex items-center gap-3 min-w-0">
+            <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-['JetBrains_Mono'] text-[#67E8F9] bg-[#030e20] px-2.5 py-0.5 border border-[#1e2a3d] uppercase shrink-0">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#4ae176] animate-pulse"></span>
+              Theater Mode
+            </span>
+            <div className="min-w-0">
+              <h3 className="text-base sm:text-xl font-bold text-[#F5F8FF] uppercase truncate">
+                {project.title}
+              </h3>
+              <span className="font-['JetBrains_Mono'] text-[11px] text-[#bbc9cf]">
+                {project.platform} • {project.status}
+              </span>
+            </div>
+          </div>
+
+          {/* Close Button */}
+          <button
+            type="button"
+            onClick={onClose}
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-[#142032] hover:bg-[#1e2a3d] border border-[#1e2a3d] hover:border-[#67E8F9]/60 text-[#bbc9cf] hover:text-[#F5F8FF] font-['JetBrains_Mono'] text-xs uppercase transition-colors cursor-pointer shrink-0"
+            aria-label="Close modal"
+          >
+            <span>Close</span>
+            <span className="text-[10px] text-[#859399] hidden sm:inline">[ESC]</span>
+            <span className="material-symbols-outlined text-[16px]">close</span>
+          </button>
+        </div>
+
+        {/* 16:9 Video Player Container */}
+        <div className="w-full aspect-video bg-[#030e20] relative">
+          {project.youtubeEmbedId ? (
+            <iframe
+              className="w-full h-full"
+              src={`https://www.youtube-nocookie.com/embed/${project.youtubeEmbedId}?autoplay=1&rel=0&modestbranding=1`}
+              title={`${project.title} - Showcase Demo`}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            ></iframe>
+          ) : (
+            <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center">
+              <span className="material-symbols-outlined text-4xl text-[#67E8F9]/50 mb-2">smart_display</span>
+              <p className="text-sm font-['JetBrains_Mono'] text-[#F5F8FF]">No demo stream configured for this plugin</p>
+            </div>
+          )}
+        </div>
+
+        {/* Modal Footer with Quick Resource Links */}
+        <div className="p-4 sm:p-5 bg-[#071426]/90 border-t border-[#1e2a3d] flex flex-wrap items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-2">
+            {/* YouTube Link */}
+            {(project.youtubeUrl || project.youtubeEmbedId) && (
+              <a
+                href={project.youtubeUrl || `https://www.youtube.com/watch?v=${project.youtubeEmbedId}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-[#FF0000]/10 hover:bg-[#FF0000]/25 border border-[#FF0000]/40 text-[#ff8080] hover:text-white font-['JetBrains_Mono'] text-xs uppercase tracking-wider transition-colors"
+                title={`Watch ${project.title} on YouTube`}
+              >
+                <svg className="w-3.5 h-3.5 fill-current text-[#ff4b4b]" viewBox="0 0 24 24">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+                <span>Watch on YouTube</span>
+              </a>
+            )}
+
+            {/* GitHub Repo */}
+            {project.isOpenSource && project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-[#142032] hover:bg-[#1e2a3d] border border-[#3c494e] text-[#bbc9cf] hover:text-[#F5F8FF] font-['JetBrains_Mono'] text-xs uppercase tracking-wider transition-colors"
+                title="View repository on GitHub"
+              >
+                <span className="material-symbols-outlined text-[15px]">code</span>
+                <span>GitHub Repo</span>
+              </a>
+            )}
+
+            {/* Spigot Link */}
+            {project.spigotUrl && (
+              <a
+                href={project.spigotUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-[#f08c00]/10 hover:bg-[#f08c00]/25 border border-[#f08c00]/40 text-[#ffb049] hover:text-white font-['JetBrains_Mono'] text-xs uppercase tracking-wider transition-colors"
+                title="View on SpigotMC"
+              >
+                <span className="material-symbols-outlined text-[15px]">extension</span>
+                <span>SpigotMC</span>
+              </a>
+            )}
+
+            {/* Paper Hangar */}
+            {project.hangarUrl && (
+              <a
+                href={project.hangarUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-[#00b954]/10 hover:bg-[#00b954]/25 border border-[#00b954]/40 text-[#4ae176] hover:text-white font-['JetBrains_Mono'] text-xs uppercase tracking-wider transition-colors"
+                title="View on Paper Hangar"
+              >
+                <span className="material-symbols-outlined text-[15px]">description</span>
+                <span>Paper Hangar</span>
+              </a>
+            )}
+          </div>
+
+          <button
+            type="button"
+            onClick={onClose}
+            className="text-xs font-['JetBrains_Mono'] text-[#859399] hover:text-[#67E8F9] transition-colors cursor-pointer ml-auto"
+          >
+            Back to Portfolio
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 interface FaqItem {
   id: number;
   question: string;
@@ -357,10 +530,9 @@ export default function App() {
     "All" | "Game Modes" | "Mechanics" | "Folia/Async"
   >("All");
   const [isTabTransitioning, setIsTabTransitioning] = useState(false);
+  const [activeModalProject, setActiveModalProject] = useState<ProjectDetails | null>(null);
 
-  const handleTabChange = (
-    tab: "All" | "Game Modes" | "Mechanics" | "Folia/Async",
-  ) => {
+  const handleTabChange = (tab: 'All' | 'Game Modes' | 'Mechanics' | 'Folia/Async') => {
     if (tab === activeTab) return;
     setIsTabTransitioning(true);
     setActiveTab(tab);
@@ -1082,32 +1254,41 @@ export default function App() {
                             ))}
                           </div>
 
-                          {/* Action Buttons Footer */}
-                          <div className="pt-3 border-t border-[#1e2a3d]">
-                            {/* External Action Links: Demo, GitHub, Spigot, Hangar */}
-                            <div className="grid grid-cols-2 gap-2">
-                              {/* 1. Show Demo (YouTube) */}
-                              {(project.youtubeUrl ||
-                                project.youtubeEmbedId) && (
-                                <a
-                                  href={
-                                    project.youtubeUrl ||
-                                    `https://www.youtube.com/watch?v=${project.youtubeEmbedId}`
-                                  }
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="flex items-center justify-center gap-1.5 py-2.5 px-2.5 bg-[#FF0000]/10 hover:bg-[#FF0000]/25 border border-[#FF0000]/40 hover:border-[#FF0000] text-[#ff8080] hover:text-white font-['JetBrains_Mono'] text-[11px] uppercase tracking-wider transition-all duration-200 group/btn"
-                                  title={`Watch ${project.title} demo on YouTube`}
-                                >
-                                  <svg
-                                    className="w-3.5 h-3.5 fill-current text-[#ff4b4b] group-hover/btn:scale-110 transition-transform flex-shrink-0"
-                                    viewBox="0 0 24 24"
-                                  >
-                                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                                  </svg>
-                                  <span>Show Demo</span>
-                                </a>
-                              )}
+                    {/* Action Buttons Footer */}
+                    <div className="pt-3 border-t border-[#1e2a3d]">
+                      {/* Primary On-Site Demo Theater Trigger */}
+                      <button
+                        type="button"
+                        onClick={() => setActiveModalProject(project)}
+                        className="w-full mb-2.5 flex items-center justify-center gap-2 py-2.5 px-3 bg-[#67E8F9]/10 hover:bg-[#67E8F9]/25 border border-[#67E8F9]/40 hover:border-[#67E8F9] text-[#67E8F9] hover:text-[#F5F8FF] font-['JetBrains_Mono'] text-xs uppercase tracking-wider transition-all duration-200 cursor-pointer shadow-sm group/site"
+                        title={`Watch ${project.title} demo directly in on-site theater`}
+                      >
+                        <span className="material-symbols-outlined text-[17px] group-hover/site:scale-110 transition-transform text-[#67E8F9]">
+                          play_circle
+                        </span>
+                        <span className="font-bold">Watch on Site</span>
+                        <span className="material-symbols-outlined text-[14px] opacity-70 ml-auto">
+                          open_in_full
+                        </span>
+                      </button>
+
+                      {/* External Action Links: Demo, GitHub, Spigot, Hangar */}
+                      <div className="grid grid-cols-2 gap-2">
+                        {/* 1. Show Demo (YouTube) */}
+                        {(project.youtubeUrl || project.youtubeEmbedId) && (
+                          <a
+                            href={project.youtubeUrl || `https://www.youtube.com/watch?v=${project.youtubeEmbedId}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center gap-1.5 py-2.5 px-2.5 bg-[#FF0000]/10 hover:bg-[#FF0000]/25 border border-[#FF0000]/40 hover:border-[#FF0000] text-[#ff8080] hover:text-white font-['JetBrains_Mono'] text-[11px] uppercase tracking-wider transition-all duration-200 group/btn"
+                            title={`Watch ${project.title} demo on YouTube`}
+                          >
+                            <svg className="w-3.5 h-3.5 fill-current text-[#ff4b4b] group-hover/btn:scale-110 transition-transform flex-shrink-0" viewBox="0 0 24 24">
+                              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                            <span>Show Demo</span>
+                          </a>
+                        )}
 
                               {/* 2. Open Source / View Code (GitHub) */}
                               {project.isOpenSource && project.githubUrl ? (
@@ -1985,6 +2166,14 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Plugin Video Demo Theater Modal */}
+      {activeModalProject && (
+        <PluginVideoModal
+          project={activeModalProject}
+          onClose={() => setActiveModalProject(null)}
+        />
+      )}
     </div>
   );
 }
