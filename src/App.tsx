@@ -1,9 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import {
-  validateCommissionBrief,
-  calculateEstimatedTurnaround,
-  CommissionBrief,
-} from './utils/formValidation.ts';
 import { copyToClipboard } from './utils/clipboard.ts';
 
 // Public Google asset URLs preserved from specification
@@ -296,6 +291,72 @@ function ProjectCardSkeleton() {
   );
 }
 
+interface FaqItem {
+  id: number;
+  question: string;
+  answer: string[];
+}
+
+const FAQ_ITEMS: FaqItem[] = [
+  {
+    id: 1,
+    question: '1. What kind of Minecraft plugins do you develop?',
+    answer: [
+      "I develop custom Minecraft plugins tailored to your server's needs, including gameplay mechanics, custom systems, events, minigames, and integrations.",
+      'Whether you have a new idea or need to improve an existing feature, feel free to get in touch.',
+    ],
+  },
+  {
+    id: 2,
+    question: '2. Which server software and versions do you support?',
+    answer: [
+      'I work with Minecraft server plugin development, including Paper and Spigot-based environments.',
+      'Compatibility depends on the project requirements, so we can discuss your server software and Minecraft version before development begins.',
+    ],
+  },
+  {
+    id: 3,
+    question: '3. Can you work with existing plugins?',
+    answer: [
+      'Yes! I can help improve existing plugin setups, implement additional features, troubleshoot issues, and develop integrations between plugins.',
+      'The feasibility depends on the plugins involved and the available APIs or source code.',
+    ],
+  },
+  {
+    id: 4,
+    question: '4. How does the development process work?',
+    answer: [
+      'Every project starts with a conversation about your idea and requirements.',
+      'From there, we define the scope, discuss the expected features, agree on the details, and move into development and testing.',
+      "You'll know what to expect before development begins.",
+    ],
+  },
+  {
+    id: 5,
+    question: '5. How much does a custom plugin cost?',
+    answer: [
+      'Pricing depends on the complexity, features, and requirements of each project.',
+      'Once I understand what you need, I can provide a quote based on the project\'s scope.',
+    ],
+  },
+  {
+    id: 6,
+    question: '6. How long does it take to develop a plugin?',
+    answer: [
+      'Development time depends on the complexity and scope of the project.',
+      'Smaller features may take less time, while more advanced systems require additional development and testing. I\'ll discuss the expected timeline with you before starting.',
+    ],
+  },
+  {
+    id: 7,
+    question: '7. Do you provide support after delivery?',
+    answer: [
+      'Post-delivery support and maintenance can be discussed as part of the project.',
+      'The support period, included revisions, and any future updates will be agreed upon before development begins.',
+    ],
+  },
+];
+
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [copiedDiscord, setCopiedDiscord] = useState(false);
@@ -312,18 +373,22 @@ export default function App() {
     }, 220);
   };
 
-  // Form State
-  const [briefForm, setBriefForm] = useState<CommissionBrief>({
-    clientName: '',
-    contactTag: '',
-    platform: 'PaperMC (1.20+)',
-    projectType: 'Custom New Plugin',
-    scopeDescription: '',
-  });
-  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submissionSuccess, setSubmissionSuccess] = useState(false);
-  const [dispatchedTicket, setDispatchedTicket] = useState('');
+  // Frequently Asked Questions State
+  const [openFaqIds, setOpenFaqIds] = useState<number[]>([1]);
+
+  const toggleFaq = (id: number) => {
+    setOpenFaqIds((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
+  };
+
+  const toggleAllFaqs = () => {
+    if (openFaqIds.length === FAQ_ITEMS.length) {
+      setOpenFaqIds([]);
+    } else {
+      setOpenFaqIds(FAQ_ITEMS.map((item) => item.id));
+    }
+  };
 
   // Hero Video State & Controls
   const videoRef = React.useRef<HTMLVideoElement | null>(null);
@@ -403,38 +468,6 @@ export default function App() {
     await copyToClipboard('commissions@voxelforcedev.com');
     setCopiedEmail(true);
     setTimeout(() => setCopiedEmail(false), 2500);
-  };
-
-  const handleFormChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setBriefForm((prev) => ({ ...prev, [name]: value }));
-    if (formErrors[name]) {
-      setFormErrors((prev) => {
-        const updated = { ...prev };
-        delete updated[name];
-        return updated;
-      });
-    }
-  };
-
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const validation = validateCommissionBrief(briefForm);
-    if (!validation.isValid) {
-      setFormErrors(validation.errors);
-      return;
-    }
-
-    setIsSubmitting(true);
-    // Simulate brief dispatch pipeline
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmissionSuccess(true);
-      const ticketId = `VX-${Math.floor(1000 + Math.random() * 9000)}`;
-      setDispatchedTicket(ticketId);
-    }, 600);
   };
 
   const filteredProjects =
@@ -1465,8 +1498,8 @@ export default function App() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-              {/* Direct Discord Card & Links (7 cols) */}
-              <div className="lg:col-span-7 space-y-6">
+              {/* Direct Discord Card & Links (5 cols) */}
+              <div className="lg:col-span-5 space-y-6">
                 {/* Interactive Discord Direct Box */}
                 <div className="bg-[#0B1F38]/95 border-2 border-[#67E8F9]/50 hover:border-[#67E8F9] p-6 sm:p-8 shadow-2xl transition-all duration-200 group relative overflow-hidden">
                   <div className="absolute -right-8 -top-8 w-32 h-32 bg-[#67E8F9]/10 rounded-full blur-2xl pointer-events-none group-hover:bg-[#67E8F9]/20 transition-all"></div>
@@ -1577,187 +1610,109 @@ export default function App() {
                     commissions@voxelforcedev.com
                   </div>
                 </div>
+
+                {/* Quick Process Info Note */}
+                <div className="bg-[#0f1c2e] border border-[#1e2a3d] p-5 shadow-lg">
+                  <div className="flex items-center gap-2 mb-2 font-['JetBrains_Mono'] text-xs text-[#4ae176] uppercase font-bold">
+                    <span className="material-symbols-outlined text-[16px]">terminal</span>
+                    <span>COMMISSION PROCESS READY</span>
+                  </div>
+                  <p className="text-xs text-[#bbc9cf] leading-relaxed">
+                    Check the Frequently Asked Questions for details on software compatibility, pricing, and project timelines. When you have your idea ready, reach out on Discord or Email to get started!
+                  </p>
+                </div>
               </div>
 
-              {/* Commission Dispatch Form (5 cols) */}
-              <div className="lg:col-span-5 bg-[#0B1F38]/95 border border-[#00b954]/30 p-6 sm:p-8 shadow-2xl relative">
-                <div className="flex items-center justify-between pb-3 mb-6 border-b border-[#030e20]">
+              {/* Frequently Asked Questions (FAQ) - Replaces Commission Dispatch Form (7 cols) */}
+              <div className="lg:col-span-7 bg-[#0B1F38]/95 border border-[#1e2a3d] hover:border-[#67E8F9]/40 p-6 sm:p-8 shadow-2xl relative transition-colors">
+                {/* Terminal Header */}
+                <div className="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-[#1e2a3d] gap-2">
                   <div className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-[#FF4D4F]"></span>
                     <span className="w-2.5 h-2.5 rounded-full bg-[#FFA726]"></span>
                     <span className="w-2.5 h-2.5 rounded-full bg-[#4ae176]"></span>
-                    <span className="font-['JetBrains_Mono'] text-xs text-[#F5F8FF] uppercase ml-1 font-bold">
-                      COMMISSION DISPATCH
-                    </span>
+                    <h3 className="font-['JetBrains_Mono'] text-xs sm:text-sm text-[#F5F8FF] uppercase ml-1 font-bold">
+                      FREQUENTLY ASKED QUESTIONS
+                    </h3>
                   </div>
-                  <span className="font-['JetBrains_Mono'] text-xs text-[#edd4ff] uppercase">
-                    &lt;OPEN QUEUE&gt;
-                  </span>
-                </div>
-
-                {submissionSuccess ? (
-                  <div className="p-6 bg-[#030e20] border-2 border-[#00b954] text-center space-y-4 animate-in fade-in zoom-in-95 duration-200">
-                    <div className="w-12 h-12 bg-[#00b954]/20 border border-[#00b954] text-[#4ae176] rounded-full flex items-center justify-center mx-auto">
-                      <span className="material-symbols-outlined text-[28px]">check</span>
-                    </div>
-                    <h4 className="text-xl font-bold uppercase text-[#F5F8FF]">
-                      Brief Dispatched!
-                    </h4>
-                    <p className="text-xs sm:text-sm text-[#bbc9cf] leading-relaxed">
-                      Your requirements have been logged into the dev queue with ticket ID{' '}
-                      <strong className="text-[#67E8F9] font-['JetBrains_Mono']">
-                        {dispatchedTicket}
-                      </strong>
-                      . WP will contact you on Discord/Email within 24 hours.
-                    </p>
+                  <div className="flex items-center gap-3">
+                    <span className="font-['JetBrains_Mono'] text-[11px] text-[#67E8F9] uppercase bg-[#030e20] px-2 py-0.5 border border-[#1e2a3d]">
+                      &lt;7 VERIFIED ANSWERS&gt;
+                    </span>
                     <button
                       type="button"
-                      onClick={() => {
-                        setSubmissionSuccess(false);
-                        setBriefForm({
-                          clientName: '',
-                          contactTag: '',
-                          platform: 'PaperMC (1.20+)',
-                          projectType: 'Custom New Plugin',
-                          scopeDescription: '',
-                        });
-                      }}
-                      className="px-4 py-2 bg-[#142032] hover:bg-[#1e2a3d] text-[#67E8F9] font-['JetBrains_Mono'] text-xs uppercase border border-[#3c494e] transition-colors"
+                      onClick={toggleAllFaqs}
+                      className="font-['JetBrains_Mono'] text-[10px] text-[#bbc9cf] hover:text-[#67E8F9] uppercase underline underline-offset-4 cursor-pointer transition-colors"
                     >
-                      Submit Another Brief
+                      {openFaqIds.length === FAQ_ITEMS.length ? 'Collapse All' : 'Expand All'}
                     </button>
                   </div>
-                ) : (
-                  <form className="space-y-4" onSubmit={handleFormSubmit}>
-                    {/* Client Name */}
-                    <div>
-                      <label className="block font-['JetBrains_Mono'] text-xs text-[#67E8F9] uppercase mb-1">
-                        Your Name / Network
-                      </label>
-                      <input
-                        name="clientName"
-                        value={briefForm.clientName}
-                        onChange={handleFormChange}
-                        className={`w-full bg-[#030e20] border ${
-                          formErrors.clientName ? 'border-[#FF4D4F]' : 'border-[#3c494e]/50'
-                        } px-4 py-2 text-sm text-[#F5F8FF] placeholder:text-[#859399]/50 focus:border-[#67E8F9] focus:outline-none`}
-                        placeholder="e.g. Alex (VoxelCraft SMP)"
-                        required
-                        type="text"
-                      />
-                      {formErrors.clientName && (
-                        <span className="text-xs text-[#FF4D4F] mt-1 block">
-                          {formErrors.clientName}
-                        </span>
-                      )}
-                    </div>
+                </div>
 
-                    {/* Contact Tag */}
-                    <div>
-                      <label className="block font-['JetBrains_Mono'] text-xs text-[#67E8F9] uppercase mb-1">
-                        Discord Tag or Email
-                      </label>
-                      <input
-                        name="contactTag"
-                        value={briefForm.contactTag}
-                        onChange={handleFormChange}
-                        className={`w-full bg-[#030e20] border ${
-                          formErrors.contactTag ? 'border-[#FF4D4F]' : 'border-[#3c494e]/50'
-                        } px-4 py-2 text-sm text-[#F5F8FF] placeholder:text-[#859399]/50 focus:border-[#67E8F9] focus:outline-none`}
-                        placeholder="username#0000 or email@domain.com"
-                        required
-                        type="text"
-                      />
-                      {formErrors.contactTag && (
-                        <span className="text-xs text-[#FF4D4F] mt-1 block">
-                          {formErrors.contactTag}
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Platform & Type */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div>
-                        <label className="block font-['JetBrains_Mono'] text-xs text-[#67E8F9] uppercase mb-1">
-                          Software Platform
-                        </label>
-                        <select
-                          name="platform"
-                          value={briefForm.platform}
-                          onChange={handleFormChange}
-                          className="w-full bg-[#030e20] border border-[#3c494e]/50 px-3 py-2 text-sm text-[#F5F8FF] focus:border-[#67E8F9] focus:outline-none"
+                {/* FAQ Items Accordion */}
+                <div className="space-y-3">
+                  {FAQ_ITEMS.map((item) => {
+                    const isOpen = openFaqIds.includes(item.id);
+                    return (
+                      <div
+                        key={item.id}
+                        className={`border transition-all duration-200 overflow-hidden ${
+                          isOpen
+                            ? 'bg-[#0f1c2e] border-[#67E8F9]/50 shadow-md'
+                            : 'bg-[#030e20]/80 border-[#1e2a3d] hover:border-[#3c494e]'
+                        }`}
+                      >
+                        <button
+                          type="button"
+                          onClick={() => toggleFaq(item.id)}
+                          aria-expanded={isOpen}
+                          className="w-full p-4 flex items-center justify-between gap-3 text-left cursor-pointer group select-none"
                         >
-                          <option value="PaperMC (1.20+)">PaperMC (1.20+)</option>
-                          <option value="Purpur">Purpur</option>
-                          <option value="Folia (Multi-thread)">Folia (Multi-thread)</option>
-                          <option value="Velocity Proxy">Velocity Proxy</option>
-                          <option value="Fabric">Fabric</option>
-                        </select>
+                          <div className="flex items-center gap-3 flex-1">
+                            <span
+                              className={`font-['JetBrains_Mono'] text-xs font-bold px-2 py-0.5 border transition-colors ${
+                                isOpen
+                                  ? 'bg-[#142032] text-[#67E8F9] border-[#67E8F9]/40'
+                                  : 'bg-[#081528] text-[#859399] border-[#1e2a3d] group-hover:text-[#67E8F9]'
+                              }`}
+                            >
+                              0{item.id}
+                            </span>
+                            <span className="text-sm sm:text-base font-bold text-[#F5F8FF] group-hover:text-[#67E8F9] transition-colors leading-snug">
+                              {item.question.replace(/^\d+\.\s*/, '')}
+                            </span>
+                          </div>
+                          <div
+                            className={`w-6 h-6 rounded flex items-center justify-center bg-[#142032] border border-[#1e2a3d] text-[#67E8F9] transition-transform duration-200 flex-shrink-0 ${
+                              isOpen ? 'rotate-180 bg-[#1e2a3d]' : ''
+                            }`}
+                          >
+                            <span className="material-symbols-outlined text-[18px]">
+                              expand_more
+                            </span>
+                          </div>
+                        </button>
+
+                        {isOpen && (
+                          <div className="px-4 pb-4 pt-1 border-t border-[#1e2a3d]/60 text-xs sm:text-sm text-[#bbc9cf] leading-relaxed space-y-2 animate-in fade-in duration-200">
+                            {item.answer.map((para, pIdx) => (
+                              <p key={pIdx}>{para}</p>
+                            ))}
+                          </div>
+                        )}
                       </div>
-                      <div>
-                        <label className="block font-['JetBrains_Mono'] text-xs text-[#67E8F9] uppercase mb-1">
-                          Project Type
-                        </label>
-                        <select
-                          name="projectType"
-                          value={briefForm.projectType}
-                          onChange={handleFormChange}
-                          className="w-full bg-[#030e20] border border-[#3c494e]/50 px-3 py-2 text-sm text-[#F5F8FF] focus:border-[#67E8F9] focus:outline-none"
-                        >
-                          <option value="Custom New Plugin">Custom New Plugin</option>
-                          <option value="Bug Fix & Profiling">Bug Fix & Profiling</option>
-                          <option value="Complete Minigame">Complete Minigame</option>
-                          <option value="Full Server Infrastructure">Full Infrastructure</option>
-                        </select>
-                      </div>
-                    </div>
+                    );
+                  })}
+                </div>
 
-                    {/* SLA preview */}
-                    <div className="px-3 py-2 bg-[#030e20] border border-[#1e2a3d] flex items-center justify-between text-xs">
-                      <span className="text-[#bbc9cf] font-['JetBrains_Mono']">
-                        Estimated Turnaround:
-                      </span>
-                      <span className="text-[#67E8F9] font-['JetBrains_Mono'] font-semibold">
-                        {calculateEstimatedTurnaround(briefForm.projectType)}
-                      </span>
-                    </div>
-
-                    {/* Scope & Description */}
-                    <div>
-                      <label className="block font-['JetBrains_Mono'] text-xs text-[#67E8F9] uppercase mb-1">
-                        Scope & Description
-                      </label>
-                      <textarea
-                        name="scopeDescription"
-                        value={briefForm.scopeDescription}
-                        onChange={handleFormChange}
-                        className={`w-full bg-[#030e20] border ${
-                          formErrors.scopeDescription
-                            ? 'border-[#FF4D4F]'
-                            : 'border-[#3c494e]/50'
-                        } p-3 text-sm text-[#F5F8FF] placeholder:text-[#859399]/50 focus:border-[#67E8F9] focus:outline-none h-28 resize-none`}
-                        placeholder="Briefly describe what you need built or optimized (e.g. gameplay mechanics, database sync, target TPS)..."
-                        required
-                      ></textarea>
-                      {formErrors.scopeDescription && (
-                        <span className="text-xs text-[#FF4D4F] mt-1 block">
-                          {formErrors.scopeDescription}
-                        </span>
-                      )}
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full py-3 bg-[#00b954] hover:bg-[#67E8F9] text-[#003543] font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-[0_0_16px_rgba(103,232,249,0.35)] flex items-center justify-center gap-2 group cursor-pointer disabled:opacity-50"
-                    >
-                      <span>{isSubmitting ? 'Dispatching...' : 'Send Commission Brief'}</span>
-                      <span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">
-                        arrow_forward
-                      </span>
-                    </button>
-                  </form>
-                )}
+                {/* FAQ Footer Info */}
+                <div className="mt-6 pt-4 border-t border-[#1e2a3d] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#859399] font-['JetBrains_Mono']">
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#4ae176]"></span>
+                    <span>READY FOR NEW COMMISSIONS</span>
+                  </div>
+                  <span className="text-[#67E8F9]">EST. RESPONSE: &lt; 24H</span>
+                </div>
               </div>
             </div>
           </div>
@@ -1861,7 +1816,7 @@ export default function App() {
                     className="hover:text-[#67E8F9] transition-colors"
                     href="#contact-section"
                   >
-                    Commission Queue
+                    FAQ & Contact
                   </a>
                 </li>
               </ul>

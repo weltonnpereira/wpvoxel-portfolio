@@ -712,28 +712,59 @@
       .process-grid { grid-template-columns: repeat(4, 1fr); }
     }
 
-    /* Form & Input Elements */
-    .form-input, .form-select, .form-textarea {
-      width: 100%;
-      background: var(--surface-container-lowest);
-      border: 1px solid rgba(60, 73, 78, 0.5);
-      padding: 0.625rem 0.875rem;
-      font-size: 0.875rem;
-      color: var(--text-crisp);
-      font-family: inherit;
+    /* Contact & FAQ Grid */
+    .contact-faq-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: start;
     }
-    .form-input:focus, .form-select:focus, .form-textarea:focus {
-      outline: none;
-      border-color: var(--cyan-beacon);
-      box-shadow: 0 0 10px rgba(103, 232, 249, 0.2);
+    @media (min-width: 1024px) {
+      .contact-faq-grid {
+        grid-template-columns: 5fr 7fr;
+      }
     }
-    .form-label {
-      display: block;
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
+    .faq-accordion-item {
+      background: rgba(3, 14, 32, 0.85);
+      border: 1px solid var(--surface-container-high);
+      margin-bottom: 0.75rem;
+      transition: all 0.2s ease;
+      overflow: hidden;
+    }
+    .faq-accordion-item[open] {
+      background: var(--surface-container-low);
+      border-color: rgba(103, 232, 249, 0.5);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    .faq-summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 1rem;
+      cursor: pointer;
+      user-select: none;
+      list-style: none;
+    }
+    .faq-summary::-webkit-details-marker {
+      display: none;
+    }
+    .faq-summary:hover .faq-question-text {
       color: var(--cyan-beacon);
-      text-transform: uppercase;
-      margin-bottom: 0.375rem;
+    }
+    .faq-accordion-item[open] .faq-chevron {
+      transform: rotate(180deg);
+      background: var(--surface-container-high);
+    }
+    .faq-content {
+      padding: 0 1rem 1rem 1rem;
+      border-top: 1px solid rgba(30, 42, 61, 0.6);
+      font-size: 0.8125rem;
+      color: var(--on-surface-variant);
+      line-height: 1.6;
+    }
+    .faq-content p + p {
+      margin-top: 0.5rem;
     }
 
     /* Mobile Drawer */
@@ -1427,7 +1458,7 @@
           </p>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start;">
+        <div class="contact-faq-grid">
           <!-- Left Discord / Email -->
           <div style="display: flex; flex-direction: column; gap: 1.5rem;">
             <div style="background: rgba(11, 31, 56, 0.95); border: 2px solid rgba(103, 232, 249, 0.5); padding: 1.5rem; position: relative; overflow: hidden;">
@@ -1488,65 +1519,148 @@
                 commissions@voxelforcedev.com
               </div>
             </div>
+
+            <!-- Process Card -->
+            <div style="background: var(--surface-container-low); border: 1px solid var(--surface-container-high); padding: 1.25rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--secondary); font-weight: 700; text-transform: uppercase;">
+                <span class="material-symbols-outlined" style="font-size: 16px;">terminal</span>
+                <span>COMMISSION PROCESS READY</span>
+              </div>
+              <p style="font-size: 0.8125rem; color: var(--on-surface-variant); line-height: 1.6; margin: 0;">
+                Check the Frequently Asked Questions for details on software compatibility, pricing, and project timelines. When you have your idea ready, reach out on Discord or Email to get started!
+              </p>
+            </div>
           </div>
 
-          <!-- Commission Brief Form -->
-          <div style="background: rgba(11, 31, 56, 0.95); border: 1px solid rgba(0, 185, 84, 0.3); padding: 1.75rem;">
-            <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 0.75rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--surface-container-lowest);">
+          <!-- Frequently Asked Questions (FAQ) Section -->
+          <div style="background: rgba(11, 31, 56, 0.95); border: 1px solid var(--surface-container-high); padding: 1.75rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 0.75rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--surface-container-lowest); flex-wrap: wrap; gap: 0.5rem;">
               <div style="display: flex; align-items: center; gap: 0.5rem;">
                 <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--redstone-alert);"></span>
                 <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--gold-ore);"></span>
                 <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--secondary);"></span>
-                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-crisp); text-transform: uppercase; font-weight: 700; margin-left: 0.25rem;">
-                  COMMISSION DISPATCH
-                </span>
+                <h3 style="font-family: var(--font-mono); font-size: 0.8125rem; color: var(--text-crisp); text-transform: uppercase; font-weight: 700; margin-left: 0.25rem; margin-top: 0; margin-bottom: 0;">
+                  FREQUENTLY ASKED QUESTIONS
+                </h3>
               </div>
-              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--tertiary); text-transform: uppercase;">&lt;OPEN QUEUE&gt;</span>
+              <span style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--cyan-beacon); background: var(--surface-container-lowest); padding: 0.125rem 0.5rem; border: 1px solid var(--surface-container-high); text-transform: uppercase;">&lt;7 VERIFIED ANSWERS&gt;</span>
             </div>
 
-            <form id="dispatch-form" style="display: flex; flex-direction: column; gap: 1rem;">
-              <div>
-                <label class="form-label">Your Name / Network</label>
-                <input class="form-input" placeholder="e.g. Alex (VoxelCraft SMP)" required type="text" id="form-name" />
-              </div>
-
-              <div>
-                <label class="form-label">Discord Tag or Email</label>
-                <input class="form-input" placeholder="username#0000 or email@domain.com" required type="text" id="form-contact" />
-              </div>
-
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
-                <div>
-                  <label class="form-label">Software Platform</label>
-                  <select class="form-select" id="form-platform">
-                    <option>PaperMC (1.20+)</option>
-                    <option>Purpur</option>
-                    <option>Folia (Multi-thread)</option>
-                    <option>Velocity Proxy</option>
-                  </select>
+            <!-- FAQ Accordion List -->
+            <div>
+              <!-- 1 -->
+              <details class="faq-accordion-item" open>
+                <summary class="faq-summary">
+                  <div style="display: flex; align-items: center; gap: 0.75rem; flex: 1;">
+                    <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--cyan-beacon); background: var(--surface-container); padding: 0.125rem 0.5rem; border: 1px solid rgba(103,232,249,0.3);">01</span>
+                    <span class="faq-question-text" style="font-size: 0.9375rem; font-weight: 700; color: var(--text-crisp); transition: color 0.2s;">What kind of Minecraft plugins do you develop?</span>
+                  </div>
+                  <span class="material-symbols-outlined faq-chevron" style="color: var(--cyan-beacon); font-size: 20px; transition: transform 0.2s;">expand_more</span>
+                </summary>
+                <div class="faq-content">
+                  <p>I develop custom Minecraft plugins tailored to your server's needs, including gameplay mechanics, custom systems, events, minigames, and integrations.</p>
+                  <p>Whether you have a new idea or need to improve an existing feature, feel free to get in touch.</p>
                 </div>
-                <div>
-                  <label class="form-label">Project Type</label>
-                  <select class="form-select" id="form-type">
-                    <option>Custom New Plugin</option>
-                    <option>Bug Fix & Profiling</option>
-                    <option>Complete Minigame</option>
-                  </select>
+              </details>
+
+              <!-- 2 -->
+              <details class="faq-accordion-item">
+                <summary class="faq-summary">
+                  <div style="display: flex; align-items: center; gap: 0.75rem; flex: 1;">
+                    <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--cyan-beacon); background: var(--surface-container); padding: 0.125rem 0.5rem; border: 1px solid rgba(103,232,249,0.3);">02</span>
+                    <span class="faq-question-text" style="font-size: 0.9375rem; font-weight: 700; color: var(--text-crisp); transition: color 0.2s;">Which server software and versions do you support?</span>
+                  </div>
+                  <span class="material-symbols-outlined faq-chevron" style="color: var(--cyan-beacon); font-size: 20px; transition: transform 0.2s;">expand_more</span>
+                </summary>
+                <div class="faq-content">
+                  <p>I work with Minecraft server plugin development, including Paper and Spigot-based environments.</p>
+                  <p>Compatibility depends on the project requirements, so we can discuss your server software and Minecraft version before development begins.</p>
                 </div>
-              </div>
+              </details>
 
-              <div>
-                <label class="form-label">Scope & Description</label>
-                <textarea class="form-textarea" style="height: 110px; resize: none;" placeholder="Briefly describe what you need built or optimized..." required id="form-scope"></textarea>
-              </div>
+              <!-- 3 -->
+              <details class="faq-accordion-item">
+                <summary class="faq-summary">
+                  <div style="display: flex; align-items: center; gap: 0.75rem; flex: 1;">
+                    <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--cyan-beacon); background: var(--surface-container); padding: 0.125rem 0.5rem; border: 1px solid rgba(103,232,249,0.3);">03</span>
+                    <span class="faq-question-text" style="font-size: 0.9375rem; font-weight: 700; color: var(--text-crisp); transition: color 0.2s;">Can you work with existing plugins?</span>
+                  </div>
+                  <span class="material-symbols-outlined faq-chevron" style="color: var(--cyan-beacon); font-size: 20px; transition: transform 0.2s;">expand_more</span>
+                </summary>
+                <div class="faq-content">
+                  <p>Yes! I can help improve existing plugin setups, implement additional features, troubleshoot issues, and develop integrations between plugins.</p>
+                  <p>The feasibility depends on the plugins involved and the available APIs or source code.</p>
+                </div>
+              </details>
 
-              <button type="submit" class="btn-cta" style="width: 100%; padding: 0.75rem; cursor: pointer;">
-                <span>Send Commission Brief</span>
-                <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span>
-              </button>
-            </form>
-            <div id="dispatch-feedback" style="display: none; padding: 1rem; margin-top: 1rem; background: var(--surface-container-lowest); border: 1px solid var(--secondary); text-align: center; color: var(--secondary); font-family: var(--font-mono); font-size: 0.8125rem;">
-              Brief successfully logged! WP will review and contact you within 24 hours.
+              <!-- 4 -->
+              <details class="faq-accordion-item">
+                <summary class="faq-summary">
+                  <div style="display: flex; align-items: center; gap: 0.75rem; flex: 1;">
+                    <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--cyan-beacon); background: var(--surface-container); padding: 0.125rem 0.5rem; border: 1px solid rgba(103,232,249,0.3);">04</span>
+                    <span class="faq-question-text" style="font-size: 0.9375rem; font-weight: 700; color: var(--text-crisp); transition: color 0.2s;">How does the development process work?</span>
+                  </div>
+                  <span class="material-symbols-outlined faq-chevron" style="color: var(--cyan-beacon); font-size: 20px; transition: transform 0.2s;">expand_more</span>
+                </summary>
+                <div class="faq-content">
+                  <p>Every project starts with a conversation about your idea and requirements.</p>
+                  <p>From there, we define the scope, discuss the expected features, agree on the details, and move into development and testing.</p>
+                  <p>You'll know what to expect before development begins.</p>
+                </div>
+              </details>
+
+              <!-- 5 -->
+              <details class="faq-accordion-item">
+                <summary class="faq-summary">
+                  <div style="display: flex; align-items: center; gap: 0.75rem; flex: 1;">
+                    <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--cyan-beacon); background: var(--surface-container); padding: 0.125rem 0.5rem; border: 1px solid rgba(103,232,249,0.3);">05</span>
+                    <span class="faq-question-text" style="font-size: 0.9375rem; font-weight: 700; color: var(--text-crisp); transition: color 0.2s;">How much does a custom plugin cost?</span>
+                  </div>
+                  <span class="material-symbols-outlined faq-chevron" style="color: var(--cyan-beacon); font-size: 20px; transition: transform 0.2s;">expand_more</span>
+                </summary>
+                <div class="faq-content">
+                  <p>Pricing depends on the complexity, features, and requirements of each project.</p>
+                  <p>Once I understand what you need, I can provide a quote based on the project's scope.</p>
+                </div>
+              </details>
+
+              <!-- 6 -->
+              <details class="faq-accordion-item">
+                <summary class="faq-summary">
+                  <div style="display: flex; align-items: center; gap: 0.75rem; flex: 1;">
+                    <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--cyan-beacon); background: var(--surface-container); padding: 0.125rem 0.5rem; border: 1px solid rgba(103,232,249,0.3);">06</span>
+                    <span class="faq-question-text" style="font-size: 0.9375rem; font-weight: 700; color: var(--text-crisp); transition: color 0.2s;">How long does it take to develop a plugin?</span>
+                  </div>
+                  <span class="material-symbols-outlined faq-chevron" style="color: var(--cyan-beacon); font-size: 20px; transition: transform 0.2s;">expand_more</span>
+                </summary>
+                <div class="faq-content">
+                  <p>Development time depends on the complexity and scope of the project.</p>
+                  <p>Smaller features may take less time, while more advanced systems require additional development and testing. I'll discuss the expected timeline with you before starting.</p>
+                </div>
+              </details>
+
+              <!-- 7 -->
+              <details class="faq-accordion-item">
+                <summary class="faq-summary">
+                  <div style="display: flex; align-items: center; gap: 0.75rem; flex: 1;">
+                    <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--cyan-beacon); background: var(--surface-container); padding: 0.125rem 0.5rem; border: 1px solid rgba(103,232,249,0.3);">07</span>
+                    <span class="faq-question-text" style="font-size: 0.9375rem; font-weight: 700; color: var(--text-crisp); transition: color 0.2s;">Do you provide support after delivery?</span>
+                  </div>
+                  <span class="material-symbols-outlined faq-chevron" style="color: var(--cyan-beacon); font-size: 20px; transition: transform 0.2s;">expand_more</span>
+                </summary>
+                <div class="faq-content">
+                  <p>Post-delivery support and maintenance can be discussed as part of the project.</p>
+                  <p>The support period, included revisions, and any future updates will be agreed upon before development begins.</p>
+                </div>
+              </details>
+            </div>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--surface-container-high); display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: 0.75rem; color: var(--outline); flex-wrap: wrap; gap: 0.5rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--secondary);"></span>
+                <span>READY FOR NEW COMMISSIONS</span>
+              </div>
+              <span style="color: var(--cyan-beacon);">EST. RESPONSE: &lt; 24H</span>
             </div>
           </div>
         </div>
@@ -1586,7 +1700,7 @@
         <div>
           <h5 style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-crisp); text-transform: uppercase; margin-bottom: 1rem; font-weight: 700;">Connect</h5>
           <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.8125rem; color: var(--on-surface-variant);">
-            <a href="https://discord.com/users/291955215446441984" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Commission Queue</a>
+            <a href="#contact-section" style="color: inherit; text-decoration: none;">FAQ & Contact</a>
             <a href="https://github.com" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">GitHub Registry</a>
             <a href="https://discord.com/users/291955215446441984" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Discord Network</a>
             <a href="https://discord.com/users/291955215446441984" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Direct Profile</a>
