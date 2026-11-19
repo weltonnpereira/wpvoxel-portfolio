@@ -24,8 +24,8 @@ const ASSETS = {
 };
 
 // Background cinematic video trailer for featured Minecraft plugins
-const TRAILER_VIDEO_URL =
-  "https://upload.wikimedia.org/wikipedia/commons/1/19/The_Wild_Update_-_Minecraft_Launch_Trailer.webm";
+// const TRAILER_VIDEO_URL =
+//   "https://upload.wikimedia.org/wikipedia/commons/1/19/The_Wild_Update_-_Minecraft_Launch_Trailer.webm";
 
 interface ProjectDetails {
   id: string;
@@ -103,28 +103,33 @@ const PROJECTS: ProjectDetails[] = [
     ],
   },
   {
-    id: "minigames",
-    title: "Competitive Minigame Systems",
-    category: "Game Modes",
-    status: "Prototype / Testing",
-    platform: "Folia Ready",
-    accentColor: "#dab1ff",
-    youtubeEmbedId: "e8x8c1gP69M",
-    youtubeUrl: "https://www.youtube.com/watch?v=e8x8c1gP69M",
-    isOpenSource: true,
-    githubUrl: "https://github.com/wpvoxel/folia-minigames-engine",
-    spigotUrl:
-      "https://www.spigotmc.org/resources/folia-minigames-engine.112340/",
-    hangarUrl: "https://hangar.papermc.io/wpvoxel/FoliaMinigames",
+    id: "ipurgenight",
+    title: "iPurgeNight",
+    category: "Events",
+    status: "v1.0 Released",
+    platform: "Paper 1.20+/1.21+",
+    accentColor: "#db1f12",
+    youtubeEmbedId: "749BqKuDJx0",
+    youtubeUrl: "https://www.youtube.com/watch?v=749BqKuDJx0",
+    isOpenSource: false,
+    spigotUrl: "https://www.spigotmc.org/resources/ipurgenight-lite.140753/",
+    hangarUrl: "https://hangar.papermc.io/wpvoxel/iPurgeNight",
     description:
-      "Distributed arena orchestrator with dynamic world-border shrinking, automated spectator ghost cameras, and skill-based lobby matchmaking.",
+      "A high-stakes apocalyptic server event engine that locks worlds in permanent night, enforces unremovable global blindness, dynamically overrides WorldGuard safe-zone PvP flags, and spawns configurable mob waves with custom loot tables.",
     highlights: [
-      "SlimeWorldManager instant arena rollbacks in <12ms without disk stalls",
-      "Concurrent region-threaded tick architecture engineered for Folia",
-      "FastBoard scoreboards with zero flicker & negligible CPU overhead",
-      "Dynamic matchmaker balancing ELO ratings across distributed instances",
+      "Dynamic WorldGuard API integration that automatically toggles safe-zone PvP flags when the event starts and safely restores them upon completion",
+      "Real-time permanent night cycle and unremovable global blindness management with admin bypass permissions",
+      "Configurable radius-based mob wave spawner with per-player entity caps and multi-world support",
+      "Flexible YAML-driven custom loot table engine supporting custom drop rates, item amounts, and vanilla drop overrides",
     ],
-    tags: ["Folia", "SlimeWorld", "MongoDB", "Netty", "FastBoard"],
+    tags: [
+      "Paper API",
+      "Kyori Adventure",
+      "WorldGuard API",
+      "Java 21",
+      "Event Engine",
+      "Free / Lite",
+    ],
   },
 ];
 
@@ -533,14 +538,14 @@ export default function App() {
   const [copiedDiscord, setCopiedDiscord] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [activeTab, setActiveTab] = useState<
-    "All" | "Game Modes" | "Mechanics" | "For Streamers"
+    "All" | "Events" | "Mechanics" | "For Streamers"
   >("All");
   const [isTabTransitioning, setIsTabTransitioning] = useState(false);
   const [activeModalProject, setActiveModalProject] =
     useState<ProjectDetails | null>(null);
 
   const handleTabChange = (
-    tab: "All" | "Game Modes" | "Mechanics" | "For Streamers",
+    tab: "All" | "Events" | "Mechanics" | "For Streamers",
   ) => {
     if (tab === activeTab) return;
     setIsTabTransitioning(true);
@@ -834,7 +839,7 @@ export default function App() {
             />
 
             {/* Video Background Layer */}
-            <video
+            {/* <video
               ref={videoRef}
               autoPlay
               loop
@@ -847,7 +852,7 @@ export default function App() {
             >
               <source src={TRAILER_VIDEO_URL} type="video/webm" />
               <source src={TRAILER_VIDEO_URL} type="video/mp4" />
-            </video>
+            </video> */}
 
             {/* Scrims and Overlays */}
             <div className="absolute inset-0 bg-gradient-to-b from-[#071426]/60 via-[#0B1F38]/70 to-[#071426]/95 backdrop-blur-[1px] z-10"></div>
@@ -1017,10 +1022,10 @@ export default function App() {
           </div>
 
           {/* Hero Video Controls Widget */}
-          <div className="relative z-30 max-w-7xl w-full mx-auto flex items-center justify-end px-4 sm:px-6 lg:px-8 mt-2 pb-3">
-            <div className="inline-flex items-center gap-1.5 p-1 bg-[#030e20]/90 backdrop-blur-md border border-[#1e2a3d] hover:border-[#67E8F9]/50 shadow-xl">
+          {/* <div className="relative z-30 max-w-7xl w-full mx-auto flex items-center justify-end px-4 sm:px-6 lg:px-8 mt-2 pb-3">
+            <div className="inline-flex items-center gap-1.5 p-1 bg-[#030e20]/90 backdrop-blur-md border border-[#1e2a3d] hover:border-[#67E8F9]/50 shadow-xl"> */}
               {/* Play / Pause Toggle */}
-              <button
+              {/* <button
                 type="button"
                 onClick={toggleVideoPlayback}
                 className="p-1.5 bg-[#142032] hover:bg-[#1e2a3d] text-[#F5F8FF] hover:text-[#67E8F9] transition-colors border border-[#3c494e]/40 cursor-pointer"
@@ -1032,10 +1037,10 @@ export default function App() {
                 <span className="material-symbols-outlined text-[18px]">
                   {isVideoPlaying ? "pause" : "play_arrow"}
                 </span>
-              </button>
+              </button> */}
 
               {/* Mute / Unmute Toggle */}
-              <button
+              {/* <button
                 type="button"
                 onClick={toggleVideoAudio}
                 className="p-1.5 bg-[#142032] hover:bg-[#1e2a3d] text-[#F5F8FF] hover:text-[#67E8F9] transition-colors border border-[#3c494e]/40 cursor-pointer"
@@ -1045,9 +1050,9 @@ export default function App() {
                 <span className="material-symbols-outlined text-[18px]">
                   {isVideoMuted ? "volume_off" : "volume_up"}
                 </span>
-              </button>
-            </div>
-          </div>
+              </button> */}
+            {/* </div>
+          </div> */}
         </section>
 
         {/* 3. SELECTED WORK / PORTFOLIO PROJECTS */}
@@ -1180,7 +1185,7 @@ export default function App() {
               {/* Filter Tabs */}
               <div className="flex flex-wrap gap-2 mb-10 border-b border-[#1e2a3d] pb-3">
                 {(
-                  ["All", "Game Modes", "Mechanics", "For Streamers"] as const
+                  ["All", "Events", "Mechanics", "For Streamers"] as const
                 ).map((tab) => (
                   <button
                     key={tab}
