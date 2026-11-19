@@ -947,7 +947,7 @@ export default function App() {
                     <span className="material-symbols-outlined text-[18px]">
                       code
                     </span>
-                    <span>Java 17/21 & Kotlin</span>
+                    <span>Java 17/21</span>
                   </div>
                   <span className="font-['JetBrains_Mono'] text-[11px] text-[#bbc9cf] uppercase mt-1">
                     Modern Standards
@@ -1024,8 +1024,8 @@ export default function App() {
           {/* Hero Video Controls Widget */}
           {/* <div className="relative z-30 max-w-7xl w-full mx-auto flex items-center justify-end px-4 sm:px-6 lg:px-8 mt-2 pb-3">
             <div className="inline-flex items-center gap-1.5 p-1 bg-[#030e20]/90 backdrop-blur-md border border-[#1e2a3d] hover:border-[#67E8F9]/50 shadow-xl"> */}
-              {/* Play / Pause Toggle */}
-              {/* <button
+          {/* Play / Pause Toggle */}
+          {/* <button
                 type="button"
                 onClick={toggleVideoPlayback}
                 className="p-1.5 bg-[#142032] hover:bg-[#1e2a3d] text-[#F5F8FF] hover:text-[#67E8F9] transition-colors border border-[#3c494e]/40 cursor-pointer"
@@ -1039,8 +1039,8 @@ export default function App() {
                 </span>
               </button> */}
 
-              {/* Mute / Unmute Toggle */}
-              {/* <button
+          {/* Mute / Unmute Toggle */}
+          {/* <button
                 type="button"
                 onClick={toggleVideoAudio}
                 className="p-1.5 bg-[#142032] hover:bg-[#1e2a3d] text-[#F5F8FF] hover:text-[#67E8F9] transition-colors border border-[#3c494e]/40 cursor-pointer"
@@ -1051,7 +1051,7 @@ export default function App() {
                   {isVideoMuted ? "volume_off" : "volume_up"}
                 </span>
               </button> */}
-            {/* </div>
+          {/* </div>
           </div> */}
         </section>
 
@@ -1184,22 +1184,22 @@ export default function App() {
 
               {/* Filter Tabs */}
               <div className="flex flex-wrap gap-2 mb-10 border-b border-[#1e2a3d] pb-3">
-                {(
-                  ["All", "Events", "Mechanics", "For Streamers"] as const
-                ).map((tab) => (
-                  <button
-                    key={tab}
-                    type="button"
-                    onClick={() => handleTabChange(tab)}
-                    className={`font-['JetBrains_Mono'] text-xs uppercase px-3 py-1.5 transition-colors border ${
-                      activeTab === tab
-                        ? "bg-[#142032] text-[#67E8F9] border-[#67E8F9]/60 shadow-[0_0_10px_rgba(103,232,249,0.3)]"
-                        : "text-[#bbc9cf] hover:text-[#F5F8FF] border-transparent hover:border-[#3c494e]"
-                    }`}
-                  >
-                    {tab}
-                  </button>
-                ))}
+                {(["All", "Events", "Mechanics", "For Streamers"] as const).map(
+                  (tab) => (
+                    <button
+                      key={tab}
+                      type="button"
+                      onClick={() => handleTabChange(tab)}
+                      className={`font-['JetBrains_Mono'] text-xs uppercase px-3 py-1.5 transition-colors border ${
+                        activeTab === tab
+                          ? "bg-[#142032] text-[#67E8F9] border-[#67E8F9]/60 shadow-[0_0_10px_rgba(103,232,249,0.3)]"
+                          : "text-[#bbc9cf] hover:text-[#F5F8FF] border-transparent hover:border-[#3c494e]"
+                      }`}
+                    >
+                      {tab}
+                    </button>
+                  ),
+                )}
               </div>
 
               {/* Projects Grid */}
@@ -1664,9 +1664,8 @@ export default function App() {
                     <div className="flex flex-wrap gap-2">
                       {[
                         "Java 17/21",
-                        "Kotlin",
                         "PaperMC",
-                        "Folia",
+                        "Purpur",
                         "Spigot",
                         "ProtocolLib",
                         "MiniMessage",
