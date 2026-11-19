@@ -49,61 +49,63 @@ const PROJECTS: ProjectDetails[] = [
   {
     id: "parkour",
     title: "Live Parkour",
-    category: "Game Modes & Stream Integration",
+    category: "For Streamers",
     status: "Live in Production",
     platform: "Paper 1.20+/1.21+",
     accentColor: "#00b954",
-    youtubeEmbedId: "x1GvmT2fS9w",
-    youtubeUrl: "https://www.youtube.com/watch?v=x1GvmT2fS9w",
+    youtubeEmbedId: "UDjDr_n3P8I",
+    youtubeUrl: "https://www.youtube.com/watch?v=UDjDr_n3P8I",
     isOpenSource: false,
     description:
-      "Interactive Stream-to-Earn plugin connecting real-time live broadcast events with in-game parkour mechanics, dynamic level progression, and automated viewer interaction commands.",
+      "A proprietary plugin built specifically for interactive TikTok live streams, fully compatible with the StreamToEarn platform. Connects real-time broadcast events with in-game parkour mechanics, dynamic level progression, and automated viewer interactions. Available for custom commissions.",
     highlights: [
-      "Real-time stream event hooks for dynamic player level scaling and interactions",
-      "Robust hardware-locked licensing (HWID) and bytecode obfuscation protection",
-      "Custom phase positioning, checkpoint teleports, and fail-safe rescue mechanics",
+      "Real-time TikTok live event hooks for dynamic player level scaling and viewer interactions",
+      "Designed for live streams with multiple viewers spamming various commands that trigger interactions.",
+      "Custom phase positioning, checkpoints, and fail-safe rescue mechanics",
       "Asynchronous command handling optimized for high-performance live streams",
     ],
     tags: [
       "Paper API",
-      "Java",
+      "Performance for Live Streams",
+      "TikTok Live",
       "HWID Security",
-      "Stream Integration",
-      "Custom Mechanics",
+      "Custom Commission",
     ],
   },
   {
     id: "enchants",
-    title: "IEnchants",
+    title: "iEnchantments",
     category: "Mechanics",
     status: "Modular Engine",
     platform: "Spigot",
     accentColor: "#8A3FFC",
-    youtubeEmbedId: "7Q3Z0R1F4fU",
-    youtubeUrl: "https://www.youtube.com/watch?v=7Q3Z0R1F4fU",
-    isOpenSource: false,
-    spigotUrl:
-      "https://www.spigotmc.org/resources/custom-enchants-arcane-runes.108420/",
+    youtubeEmbedId: "J27KmDbbAvU",
+    youtubeUrl: "https://www.youtube.com/watch?v=J27KmDbbAvU",
+    isOpenSource: true,
+    spigotUrl: "https://www.spigotmc.org/resources/ienchantments.140265/",
+    githubUrl: "https://github.com/weltonnpereira/iEnchantments",
     description:
-      "Modular combat and utility enchantment engine supporting over 45+ trigger conditions, persistent PDC NBT tags, and dynamic visual shader packets.",
+      "A robust, modular enchantment and utility engine featuring centralized managers, Extraction Runes, dynamic success-rate book applications, and an advanced XP Recycler system.",
     highlights: [
-      "High-performance event-driven activation pipeline with zero lag spikes",
-      "Anvil, Grindstone, and Runetable custom interactive GUIs",
-      "Adventure MiniMessage dynamic lore & gradient color rendering",
-      "PDC (PersistentDataContainer) byte storage for cross-restart preservation",
+      "Clean modular architecture with dedicated managers for enchantments, runes, and recycling",
+      "Extraction Rune system with intelligent item validation and inventory overflow protection",
+      "Tiered Simple, Normal, and Advanced books with dynamic success rates and strict item target validation",
+      "Interactive Recycler GUI with bulk book deposition, proportion-based XP conversion, and safe item devolution",
     ],
     tags: [
-      "Purpur API",
-      "ProtocolLib",
-      "MiniMessage",
-      "Custom NBT",
-      "Adventure",
+      "Spigot API",
+      "Modular Architecture",
+      "Custom GUIs",
+      "Experience Economy",
+      "Open Source",
+      "Free",
+      "Factions",
     ],
   },
   {
     id: "minigames",
     title: "Competitive Minigame Systems",
-    category: "Folia/Async",
+    category: "Game Modes",
     status: "Prototype / Testing",
     platform: "Folia Ready",
     accentColor: "#dab1ff",
@@ -145,7 +147,7 @@ function ProjectVideoWithSkeleton({
     <div
       onClick={onOpenModal}
       className={`w-full aspect-video bg-[#030e20] border border-[#1e2a3d] mb-4 overflow-hidden relative shadow-inner group/video select-none ${
-        onOpenModal ? 'cursor-pointer hover:border-[#67E8F9]/60' : ''
+        onOpenModal ? "cursor-pointer hover:border-[#67E8F9]/60" : ""
       }`}
     >
       {/* Expand Theater Overlay Hint Button */}
@@ -160,7 +162,9 @@ function ProjectVideoWithSkeleton({
           title="Expand demo video into on-site theater modal"
           aria-label="Expand demo video in theater modal"
         >
-          <span className="material-symbols-outlined text-[15px]">open_in_full</span>
+          <span className="material-symbols-outlined text-[15px]">
+            open_in_full
+          </span>
           <span>Expand</span>
         </button>
       )}
@@ -336,10 +340,6 @@ function PluginVideoModal({
         {/* Modal Header */}
         <div className="p-4 sm:p-5 flex items-center justify-between border-b border-[#1e2a3d] bg-[#071426]/90 gap-3">
           <div className="flex items-center gap-3 min-w-0">
-            <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-['JetBrains_Mono'] text-[#67E8F9] bg-[#030e20] px-2.5 py-0.5 border border-[#1e2a3d] uppercase shrink-0">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#4ae176] animate-pulse"></span>
-              Theater Mode
-            </span>
             <div className="min-w-0">
               <h3 className="text-base sm:text-xl font-bold text-[#F5F8FF] uppercase truncate">
                 {project.title}
@@ -357,8 +357,6 @@ function PluginVideoModal({
             className="flex items-center gap-1.5 px-3 py-1.5 bg-[#142032] hover:bg-[#1e2a3d] border border-[#1e2a3d] hover:border-[#67E8F9]/60 text-[#bbc9cf] hover:text-[#F5F8FF] font-['JetBrains_Mono'] text-xs uppercase transition-colors cursor-pointer shrink-0"
             aria-label="Close modal"
           >
-            <span>Close</span>
-            <span className="text-[10px] text-[#859399] hidden sm:inline">[ESC]</span>
             <span className="material-symbols-outlined text-[16px]">close</span>
           </button>
         </div>
@@ -375,8 +373,12 @@ function PluginVideoModal({
             ></iframe>
           ) : (
             <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center">
-              <span className="material-symbols-outlined text-4xl text-[#67E8F9]/50 mb-2">smart_display</span>
-              <p className="text-sm font-['JetBrains_Mono'] text-[#F5F8FF]">No demo stream configured for this plugin</p>
+              <span className="material-symbols-outlined text-4xl text-[#67E8F9]/50 mb-2">
+                smart_display
+              </span>
+              <p className="text-sm font-['JetBrains_Mono'] text-[#F5F8FF]">
+                No demo stream configured for this plugin
+              </p>
             </div>
           )}
         </div>
@@ -387,14 +389,20 @@ function PluginVideoModal({
             {/* YouTube Link */}
             {(project.youtubeUrl || project.youtubeEmbedId) && (
               <a
-                href={project.youtubeUrl || `https://www.youtube.com/watch?v=${project.youtubeEmbedId}`}
+                href={
+                  project.youtubeUrl ||
+                  `https://www.youtube.com/watch?v=${project.youtubeEmbedId}`
+                }
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-[#FF0000]/10 hover:bg-[#FF0000]/25 border border-[#FF0000]/40 text-[#ff8080] hover:text-white font-['JetBrains_Mono'] text-xs uppercase tracking-wider transition-colors"
+                className="flex items-center gap-1.5 px-3 py-2.5 bg-[#FF0000]/10 hover:bg-[#FF0000]/25 border border-[#FF0000]/40 text-[#ff8080] hover:text-white font-['JetBrains_Mono'] text-xs uppercase tracking-wider transition-colors"
                 title={`Watch ${project.title} on YouTube`}
               >
-                <svg className="w-3.5 h-3.5 fill-current text-[#ff4b4b]" viewBox="0 0 24 24">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                <svg
+                  className="w-3.5 h-3.5 fill-current text-[#ff4b4b]"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                 </svg>
                 <span>Watch on YouTube</span>
               </a>
@@ -409,7 +417,9 @@ function PluginVideoModal({
                 className="flex items-center gap-1.5 px-3 py-1.5 bg-[#142032] hover:bg-[#1e2a3d] border border-[#3c494e] text-[#bbc9cf] hover:text-[#F5F8FF] font-['JetBrains_Mono'] text-xs uppercase tracking-wider transition-colors"
                 title="View repository on GitHub"
               >
-                <span className="material-symbols-outlined text-[15px]">code</span>
+                <span className="material-symbols-outlined text-[15px]">
+                  code
+                </span>
                 <span>GitHub Repo</span>
               </a>
             )}
@@ -423,7 +433,9 @@ function PluginVideoModal({
                 className="flex items-center gap-1.5 px-3 py-1.5 bg-[#f08c00]/10 hover:bg-[#f08c00]/25 border border-[#f08c00]/40 text-[#ffb049] hover:text-white font-['JetBrains_Mono'] text-xs uppercase tracking-wider transition-colors"
                 title="View on SpigotMC"
               >
-                <span className="material-symbols-outlined text-[15px]">extension</span>
+                <span className="material-symbols-outlined text-[15px]">
+                  extension
+                </span>
                 <span>SpigotMC</span>
               </a>
             )}
@@ -437,19 +449,13 @@ function PluginVideoModal({
                 className="flex items-center gap-1.5 px-3 py-1.5 bg-[#00b954]/10 hover:bg-[#00b954]/25 border border-[#00b954]/40 text-[#4ae176] hover:text-white font-['JetBrains_Mono'] text-xs uppercase tracking-wider transition-colors"
                 title="View on Paper Hangar"
               >
-                <span className="material-symbols-outlined text-[15px]">description</span>
+                <span className="material-symbols-outlined text-[15px]">
+                  description
+                </span>
                 <span>Paper Hangar</span>
               </a>
             )}
           </div>
-
-          <button
-            type="button"
-            onClick={onClose}
-            className="text-xs font-['JetBrains_Mono'] text-[#859399] hover:text-[#67E8F9] transition-colors cursor-pointer ml-auto"
-          >
-            Back to Portfolio
-          </button>
         </div>
       </div>
     </div>
@@ -527,12 +533,15 @@ export default function App() {
   const [copiedDiscord, setCopiedDiscord] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [activeTab, setActiveTab] = useState<
-    "All" | "Game Modes" | "Mechanics" | "Folia/Async"
+    "All" | "Game Modes" | "Mechanics" | "For Streamers"
   >("All");
   const [isTabTransitioning, setIsTabTransitioning] = useState(false);
-  const [activeModalProject, setActiveModalProject] = useState<ProjectDetails | null>(null);
+  const [activeModalProject, setActiveModalProject] =
+    useState<ProjectDetails | null>(null);
 
-  const handleTabChange = (tab: 'All' | 'Game Modes' | 'Mechanics' | 'Folia/Async') => {
+  const handleTabChange = (
+    tab: "All" | "Game Modes" | "Mechanics" | "For Streamers",
+  ) => {
     if (tab === activeTab) return;
     setIsTabTransitioning(true);
     setActiveTab(tab);
@@ -861,7 +870,7 @@ export default function App() {
               <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-[#1e2a3d]/90 backdrop-blur-md border border-[#67E8F9]/30 shadow-[0_0_15px_rgba(103,232,249,0.25)] mb-6">
                 <span className="w-2.5 h-2.5 bg-[#67E8F9] shadow-[0_0_10px_#67E8F9] animate-pulse"></span>
                 <span className="font-['JetBrains_Mono'] text-xs sm:text-sm text-[#67E8F9] uppercase tracking-wider font-semibold">
-                  MINECRAFT PLUGIN DEVELOPER • PAPER / SPIGOT / FOLIA
+                  MINECRAFT PLUGIN DEVELOPER • PAPER / SPIGOT
                 </span>
               </div>
 
@@ -1171,7 +1180,7 @@ export default function App() {
               {/* Filter Tabs */}
               <div className="flex flex-wrap gap-2 mb-10 border-b border-[#1e2a3d] pb-3">
                 {(
-                  ["All", "Game Modes", "Mechanics", "Folia/Async"] as const
+                  ["All", "Game Modes", "Mechanics", "For Streamers"] as const
                 ).map((tab) => (
                   <button
                     key={tab}
@@ -1254,42 +1263,26 @@ export default function App() {
                             ))}
                           </div>
 
-                    {/* Action Buttons Footer */}
-                    <div className="pt-3 border-t border-[#1e2a3d]">
-                      {/* Primary On-Site Demo Theater Trigger */}
-                      <button
-                        type="button"
-                        onClick={() => setActiveModalProject(project)}
-                        className="w-full mb-2.5 flex items-center justify-center gap-2 py-2.5 px-3 bg-[#67E8F9]/10 hover:bg-[#67E8F9]/25 border border-[#67E8F9]/40 hover:border-[#67E8F9] text-[#67E8F9] hover:text-[#F5F8FF] font-['JetBrains_Mono'] text-xs uppercase tracking-wider transition-all duration-200 cursor-pointer shadow-sm group/site"
-                        title={`Watch ${project.title} demo directly in on-site theater`}
-                      >
-                        <span className="material-symbols-outlined text-[17px] group-hover/site:scale-110 transition-transform text-[#67E8F9]">
-                          play_circle
-                        </span>
-                        <span className="font-bold">Watch on Site</span>
-                        <span className="material-symbols-outlined text-[14px] opacity-70 ml-auto">
-                          open_in_full
-                        </span>
-                      </button>
+                          {/* Action Buttons Footer */}
+                          <div className="pt-3 border-t border-[#1e2a3d]">
+                            {/* Primary On-Site Demo Theater Trigger */}
+                            <button
+                              type="button"
+                              onClick={() => setActiveModalProject(project)}
+                              className="w-full mb-2.5 flex items-center justify-center gap-2 py-2.5 px-3 bg-[#67E8F9]/10 hover:bg-[#67E8F9]/25 border border-[#67E8F9]/40 hover:border-[#67E8F9] text-[#67E8F9] hover:text-[#F5F8FF] font-['JetBrains_Mono'] text-xs uppercase tracking-wider transition-all duration-200 cursor-pointer shadow-sm group/site"
+                              title={`Watch ${project.title} demo directly in on-site theater`}
+                            >
+                              <span className="material-symbols-outlined text-[17px] group-hover/site:scale-110 transition-transform text-[#67E8F9]">
+                                play_circle
+                              </span>
+                              <span className="font-bold">Watch Demo</span>
+                              <span className="material-symbols-outlined text-[14px] opacity-70 ml-auto">
+                                open_in_full
+                              </span>
+                            </button>
 
-                      {/* External Action Links: Demo, GitHub, Spigot, Hangar */}
-                      <div className="grid grid-cols-2 gap-2">
-                        {/* 1. Show Demo (YouTube) */}
-                        {(project.youtubeUrl || project.youtubeEmbedId) && (
-                          <a
-                            href={project.youtubeUrl || `https://www.youtube.com/watch?v=${project.youtubeEmbedId}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-center gap-1.5 py-2.5 px-2.5 bg-[#FF0000]/10 hover:bg-[#FF0000]/25 border border-[#FF0000]/40 hover:border-[#FF0000] text-[#ff8080] hover:text-white font-['JetBrains_Mono'] text-[11px] uppercase tracking-wider transition-all duration-200 group/btn"
-                            title={`Watch ${project.title} demo on YouTube`}
-                          >
-                            <svg className="w-3.5 h-3.5 fill-current text-[#ff4b4b] group-hover/btn:scale-110 transition-transform flex-shrink-0" viewBox="0 0 24 24">
-                              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                            </svg>
-                            <span>Show Demo</span>
-                          </a>
-                        )}
-
+                            {/* External Action Links: Demo, GitHub, Spigot, Hangar */}
+                            <div className="grid grid-cols-2 gap-2">
                               {/* 2. Open Source / View Code (GitHub) */}
                               {project.isOpenSource && project.githubUrl ? (
                                 <a
@@ -2058,9 +2051,9 @@ export default function App() {
                 </span>
               </div>
               <p className="text-xs sm:text-sm text-[#bbc9cf] max-w-md leading-relaxed">
-                Engineering ultra-low latency, mission-critical Paper, Purpur,
-                and Folia plugins, distributed network orchestration, and custom
-                game mechanics for premier Minecraft servers.
+                Engineering ultra-low latency, mission-critical Paper and Spigot
+                distributed network orchestration, and custom game mechanics for
+                premier Minecraft servers.
               </p>
               <div className="flex flex-wrap items-center gap-3 text-[#859399] font-['JetBrains_Mono'] text-xs">
                 <span>V1.20.4+ ARCHITECTURE READY</span>
